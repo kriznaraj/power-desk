@@ -1,0 +1,7 @@
+chargebee:
+  {
+    site: "mannar-test",
+    # api_key: "test___dev__cdcQhl7Eo6QzMpzkrECwKI2LWtcdPW25xw",
+    # api_key: "test___dev__kDeHzk7uTcdqtQQ33E5UwBfcdfAeBudhd4"
+    api_key: "test___dev__Vqb03sVWScusi5sOfdaVVNWJczdocdPk4N" #krishna
+  }

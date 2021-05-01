@@ -1,0 +1,85 @@
+<!DOCTYPE>
+<html ng-app="myApp">
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+    <title>Power Desk</title>
+
+</head>
+
+
+<body>
+    <script src="/scripts/ejs.js"></script>
+    <script src="/scripts/analyseHelper.js"></script>
+    <% var username ="Alexa"%>
+        <% if (dbResult.invoiceResult != undefined && dbResult.UserInfo != undefined) { %>
+        <% username = dbResult.UserInfo.username %>
+        <%}%>
+    <%- include navbar.ejs %>
+    <div class="container" style="margin-top: 100px;">
+        <div class="form-outline">
+            <form>
+                <div class="form-group row">
+                    <label for="Domain" class="col-sm-2 col-form-label">Domain</label>
+                    <div class="col-sm-10"><input type="text" id="formControlDefault"
+                            class="form-control h-50 d-inline-block"
+                            style="width: 120px; background-color: rgba(241, 241, 247, 0.144)" /></div>
+                </div>
+                <div class="form-group row">
+                    <label for="Module" class="col-sm-2 col-form-label">Module</label>
+                    <div class="col-sm-10"><input type="text" id="formControlDefault"
+                            class="form-control h-50 d-inline-block"
+                            style="width: 120px; background-color: rgba(241, 241, 247, 0.144)" /></div>
+                </div>
+                <div class="form-group row">
+                    <label for="Param" class="col-sm-2 col-form-label">Param</label>
+                    <div class="col-sm-10"><input type="text" id="formControlDefault" class="form-control h-50 d-inline-block"
+                            style="width: 120px; background-color: rgba(241, 241, 247, 0.144)" /></div>
+                </div>
+                <div class="form-group row" style="position:absolute;">
+                    <div class="col-xs-5 right:50%;">
+                        <% var redirect_url = "http://localhost:3030/listEntity?type=Rules&" + "username=" + username %> 
+                        <a href= <%= redirect_url %>  class="btn btn-success">Back</a>
+                    </div>
+                    <div class="col-xs-5 right:50%;">
+                        <% redirect_url = "http://localhost:3030/fetchInvoice?invoice_id=244000000000&" + "username=" + username %> 
+                        <a href= <%= redirect_url %> class="btn btn-success">Submit</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+
+        <% if(dbResult.invoiceResult != undefined){
+            var data = JSON.stringify(dbResult.invoiceResult);
+            const rows = data;
+            var jsonList = JSON.parse(data);
+            var keyList = Object.keys(jsonList[0]);
+        } %>
+        <table class="table"  id="invoiceTable" style="margin-top: 100px; background-color: black; color: blanchedalmond;">
+            <th>
+                "Module details"
+            </th>
+                <%if (keyList !=undefined){%>
+                <% for(key in keyList) {%>
+                   <tr>
+                       <td><%= keyList[key] %></td>
+                        <td><%= dbResult.invoiceResult[0][keyList[key]] %></td> 
+                    </tr>
+                <% } %>
+                <%}%>
+        </table>
+
+
+
+    </div>
+
+</body>
+
+</html>

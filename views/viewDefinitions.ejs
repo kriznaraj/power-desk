@@ -1,0 +1,173 @@
+<!DOCTYPE>
+<html ng-app="myApp">
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <script src="./scripts/ejs.js"></script>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/navbar.css">
+    <link rel="stylesheet" href="../styles/stats.css">
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+    <script src="./scripts/FireBaseHelper.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"
+        integrity="sha512-qzgd5cYSZcosqpzpn7zF2ZId8f/8CHmFKZ8j7mU4OUXTNRd5g+ZHBPsgKEwoqxCtdQvExE5LprwwPAgoicguNg=="
+        crossorigin="anonymous"></script>
+    <title>View Definition</title>
+</head>
+
+<body>
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="#page-top">Power Desk</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="page-scroll" id="username"></li>
+                    <li class="page-scroll">
+                        <a href="http://localhost:3030/dashboard">Home</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="http://localhost:3030/run_definition">Definitions</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+        <h2 id="definitionId"> </h2>
+        <div class="row" style="margin-top: 2%;">
+
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>WorkFlow Id</th>
+                            <th>Rule Id</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="defintion_rules_body">
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row" style="margin-top: 10%;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" id="show_stats">
+                <table id="recommended_actions">
+                    <thead>
+                        <tr>
+                            <th>Recommended Action to be taken</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody id="action_body">
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+
+
+</body>
+<script>
+    $(document).ready(function () {
+        var definitionId = getURLParameter("id");
+        document.getElementById("definitionId").innerHTML = "Definition: " + definitionId.toLocaleUpperCase();
+        var database = initDatbaseConn();
+
+
+        let triggerExecRef = getDashboardData("logs/definitions/" + definitionId, database)
+        triggerExecRef.on("value", onTriggeredExecutionsSuccess, errData);
+
+        function onTriggeredExecutionsSuccess(data) {
+            let definitionInfo = data.val();
+            let definitionExecutions = Object.keys(definitionInfo)
+            var tr = "";
+            for (var i = 0; i < Math.min(definitionExecutions.length, 3); i++) {
+
+                let ruleKeys = Object.keys(definitionInfo[definitionExecutions[i]].response)
+
+                let responses = definitionInfo[definitionExecutions[i]].response
+                let status = definitionInfo[definitionExecutions[i]].status
+                for (var j = 0; j < ruleKeys.length; j++) {
+                    console.log("hi priniting responses")
+                    console.log(responses[ruleKeys[j]])
+                    let innerResponse = responses[ruleKeys[j]].status;
+                    if(innerResponse == undefined){
+                        innerResponse = "SUCCESS"
+                    }
+                    tr += "<tr >" +
+                        "<td> " + definitionExecutions[i] + "</td>" +
+                        "<td> " + ruleKeys[j] + "</td>" +
+                        "<td> " + innerResponse+ "</td>" +
+                        "</tr>";
+                }
+            }
+            document.getElementById("defintion_rules_body").innerHTML = tr;
+        }
+
+        let actionsRef = getDashboardData("/actions", database)
+        actionsRef.on("value", onActionsRefSuccess, errData);
+
+        function onActionsRefSuccess(data) {
+            let actions = data.val();
+            let keys = Object.keys(actions);
+            var tr = "";
+            for (var i = 0; i < keys.length; i++) {
+                actionLink = actions[keys[i]].href
+
+                if (actions[keys[i]].actionType == "NORMAL") {
+                    href = "<a href=" + actionLink + " target='_blank' >" + actions[keys[i]].name + "</a>"
+                } else {
+                    href = "<a href='/trigger_actions?actionLink=" +
+                        actionLink + "&type=" + keys[i] + "&definitionId=" + definitionId + "'>" + actions[
+                            keys[i]].name + "</a>"
+                }
+
+                tr += "<tr>" +
+                    "<td> " + href + "</td>" +
+                    "<td> " + actions[keys[i]].desc + "</td>"
+                "</tr>";
+            }
+            document.getElementById("action_body").innerHTML = tr;
+        }
+
+        function getURLParameter(sParam) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) {
+                    return sParameterName[1];
+                }
+            }
+        }
+    });
+</script>
+
+</html>

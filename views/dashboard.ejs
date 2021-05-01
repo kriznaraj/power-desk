@@ -1,0 +1,266 @@
+<!DOCTYPE>
+<html ng-app="myApp">
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/navbar.css">
+    <link rel="stylesheet" href="../styles/chart.css">
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+    <script src="./scripts/FireBaseHelper.js"></script>
+    <script src="./scripts/chart.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"
+        integrity="sha512-qzgd5cYSZcosqpzpn7zF2ZId8f/8CHmFKZ8j7mU4OUXTNRd5g+ZHBPsgKEwoqxCtdQvExE5LprwwPAgoicguNg=="
+        crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {
+            packages: ['corechart']
+        });
+    </script>
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <% var user =""%>
+    <% if (username != undefined) { %>
+        <% user = username %>
+            <%}%>
+    <%- include navbar.ejs %>
+    <div class="container" style="width: 1700px">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Site vs Error Count</h2>
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <table id="site_error_stats">
+                        <thead>
+                            <tr>
+                                <th>Domain</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody id="TriggeredErrorsAggregatorSite">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="col-md-4">
+                <h2>Module vs Error Count</h2>
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <table id="error_module">
+                        <thead>
+                            <tr>
+                                <th>Module</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody id="TriggeredErrorsAggregatorModule">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="col-md-4">
+                <h2>Error Code vs Error Count</h2>
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <table id="error_module_stats">
+                        <thead>
+                            <tr>
+                                <th>ErrorCode</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody id="TriggeredErrorsAggregatorErrorCode">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6" style="margin-top: 2%;">
+                <!-- <div class="row"> -->
+                <h2>Charts</h1>
+                    <div class="clearfix" style="margin-top: 5%;"></div>
+                    <div id="chart_div1" class="chart"></div>
+            </div>
+            <div class="col-md-6" style="margin-top: 2%;">
+                <h2> Streaming messages </h2>
+                <table id="live_feed">
+                    <thead>
+                        <tr>
+                            <th>Live Feed</th>
+                        </tr>
+                    </thead>
+                    <tbody id="live_feed_data">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $("#TriggeredErrorsAggregatorSite").hide()
+    $("#TriggeredErrorsAggregatorErrorCode").hide()
+    $("#TriggeredErrorsAggregatorModule").hide()
+    $("#live_file").hide()
+    $(document).ready(function () {
+        var database = initDatbaseConn();
+        let id = "";
+
+        updateChart();
+        var siteErrorsRef = getDashboardData('Analytics/TriggeredErrorsAggregatorSite', database);
+        siteErrorsRef.on("value", onSuccess, errData);
+
+        var siteErrorCodeRef = getDashboardData('Analytics/TriggeredErrorsAggregatorErrorCode', database);
+        siteErrorCodeRef.on("value", onSuccess, errData);
+
+        var siteErrorModuleRef = getDashboardData('Analytics/TriggeredErrorsAggregatorModule', database);
+        siteErrorModuleRef.on("value", onSuccess, errData);
+
+        var live_feed = getDashboardData('Console/definitionData', database);
+        live_feed.on("value", onFeedSuccess, errData);
+
+        // var latest_definitions = getDashboardData('Jobs/WorkflowJobs', database);
+        // latest_definitions.on("value", onJobFetchSuccess, errData);
+
+        function onFeedSuccess(data) {
+            let feed = data.val()
+            let keys = Object.keys(feed)
+            let tr = "";
+            let isDanger = "<span class=\"label label-danger\"> IMPORTANT</span>"
+            let isInfo = "<span class=\"label label-info\"> Information</span>"
+            let isSuccess = "<span class=\"label label-success\"> Success</span>"
+            for (var i = 0; i < keys.length; i++) {
+                let curr = keys[i];
+                if (feed[curr].status == "DANGER") {
+                    tr += isDanger
+                } else if (feed[curr].status == "SUCCESS") {
+                    tr += isSuccess
+                } else {
+                    tr += isInfo
+                }
+                if (feed[curr].message != null) {
+                    tr += "<tr><td> " + "Domain:" + feed[curr].message + "</td></tr>"
+                } else {
+                    message = "Definition: " + feed[curr].definitionName + " is triggered by " +
+                        feed[curr].triggeredBy + " status is " + feed[curr].type + " and rules completed " +
+                        feed[curr].rulesCompleted + "/" + feed[curr].rulesTotal
+                    tr += "<tr><td> " + message + "</td></tr>"
+                }
+
+            }
+            document.getElementById("live_feed_data").innerHTML = tr;
+            $("live_feed_data").show()
+        }
+
+
+        function onSuccess(data) {
+            let siteErrors = data.val();
+            let key = data.key;
+            var siteNames = Object.keys(siteErrors);
+            console.log(siteNames);
+            var tr = "";
+            for (var i = 0; i < siteNames.length; i++) {
+                let siteName = siteNames[i];
+                tr += "<tr>" +
+                    "<td> " + siteName + "</td>" +
+                    "<td> " + siteErrors[siteName] + "</td>" +
+                    "</tr>";
+            }
+            document.getElementById(key).innerHTML = tr;
+            $("#" + key).show()
+        }
+
+        function onJobFetchSuccess(data) {
+            let jobs = data.val();
+            var jobIds = Object.keys(jobs);
+            console.log(jobIds);
+            var tr = "";
+            for (var i = 0; i < jobIds.length; i++) {
+                let jobId = jobIds[i];
+                let job = jobs[jobId];
+                var output = job.output;
+                if (output) {
+                    var definitions = Object.keys(output);
+                    for (var i = 0; i < definitions.length; i++) {
+                        let definition = definitions[i];
+                        if (output[definition].status == 'PASS') {
+
+                            href = "<a href=view_definitions?id=" + definition + ">" + definition + "</a>"
+                            console.log(href)
+                            tr += "<tr><td> " + href + "</td>" +
+                                "<td> " + output[definition].rootCause + "</td>" +
+                                "<td> " + job.domainName + "</td>" +
+                                "</tr>";
+                        }
+                    }
+                }
+            }
+            document.getElementById("definition_body_stats").innerHTML = tr;
+        }
+
+        function updateChart() {
+            google.load("visualization", "1", {
+                packages: ["corechart"]
+            });
+            google.setOnLoadCallback(drawChart1);
+            var chartsRef = getDashboardData("Analytics/Charts/timeSaved", database);
+            chartsRef.on("value", onChartFetch, onerror);
+
+            function onChartFetch(data) {
+                var info = data.val();
+                var timeSavedKeys = Object.keys(info);
+                var headers = ['Month', 'Manual', 'PowerDesk'];
+                var statsArray = [];
+                statsArray.push(headers);
+                for (var i = 0; i < timeSavedKeys.length; i++) {
+                    var key = info[timeSavedKeys[i]];
+                    var stat = [];
+                    var month = key.month
+                    stat.push(month.toUpperCase());
+                    stat.push(key.manual);
+                    stat.push(key.automated);
+                    statsArray.push(stat);
+                }
+                var data = google.visualization.arrayToDataTable(statsArray);
+
+                var options = {
+                    title: 'Time Spent Manually vs With PowerDesk',
+                    hAxis: {
+                        title: 'Year',
+                        titleTextStyle: {
+                            color: 'red'
+                        }
+                    }
+                };
+
+                var chart = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
+                chart.draw(data, options);
+            }
+
+            google.load("visualization", "1", {
+                packages: ["corechart"]
+            });
+            google.setOnLoadCallback(drawChart2);
+
+            $(window).resize(function () {
+                onChartFetch();
+            });
+            // Reminder: you need to put https://www.google.com/jsapi in the head of your document or as an external resource on codepen //
+        }
+    });
+</script>
+
+</html>

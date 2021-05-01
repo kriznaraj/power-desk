@@ -1,0 +1,2221 @@
+{
+  "Analytics" : {
+    "Charts" : {
+      "timeSaved" : [ {
+        "automated" : 100,
+        "manual" : 101,
+        "month" : "jan"
+      }, {
+        "automated" : 40,
+        "manual" : 50,
+        "month" : "feb"
+      }, {
+        "automated" : 15,
+        "manual" : 50,
+        "month" : "mar"
+      }, {
+        "automated" : 15,
+        "manual" : 50,
+        "month" : "april"
+      } ]
+    },
+    "TriggerSources" : {
+      "Customer Reported Issues" : 19,
+      "Internally Found" : 21,
+      "Kibana" : 30,
+      "Splunk" : 15
+    },
+    "TriggeredErrorsAggregatorErrorCode" : {
+      "Accounting Code Mismatch" : 25,
+      "Currency Mismatch" : 24,
+      "Plan not found" : 16,
+      "Something went wrong" : 9,
+      "Tax mapping not found" : 12
+    },
+    "TriggeredErrorsAggregatorModule" : {
+      "Accounting" : 18,
+      "CRM" : 10,
+      "E-commerce" : 9,
+      "Hubspot" : 15,
+      "Invoice" : 10,
+      "Subscription" : 13,
+      "accounting" : 18
+    },
+    "TriggeredErrorsAggregatorSite" : {
+      "freshcaller" : 18,
+      "freshworks" : 20,
+      "intacct" : 20,
+      "mannar-test" : 15,
+      "reinvision" : 16,
+      "zendesk" : 11
+    },
+    "TriggeredExecutions" : [ {
+      "verifyAccountCodeForInvoice" : {
+        "Check Plan Status" : "FAIL",
+        "ExecutedAt" : "23/04/2021 14:00:00",
+        "FailureReason" : "Plan not found for Invoice",
+        "RecommendedFix" : "Check Plan Status",
+        "retrieveInvoice" : "PASS"
+      }
+    } ]
+  },
+  "Console" : {
+    "definitionData" : [ {
+      "definitionName" : "Accounting Code Mismatch",
+      "moduleName" : "accounting_code_test",
+      "rulesCompleted" : 10,
+      "rulesTotal" : 100,
+      "status" : "running",
+      "triggeredBy" : "Madhukiran"
+    }, {
+      "message" : "madhukiran-test - Looks like multiple definitions are failing for domain: mannar-test",
+      "status" : "DANGER"
+    }, null, {
+      "message" : "nandicool - Definition Account_code_chef is passed. Triggering Email to customer",
+      "status" : "info"
+    }, {
+      "message" : "Freshdesk - The currency exchange rate is not congfigured",
+      "status" : "info"
+    }, {
+      "message" : "mannar-test tried to çonnect to xero 5 times and is unsuccessful",
+      "status" : "DANGER"
+    } ]
+  },
+  "CurrentStatus" : {
+    "-1825884723" : {
+      "definitionId" : "verifyAccountCodeForInvoice",
+      "domain" : "freshdesk",
+      "params" : {
+        "domain" : "mannar-test",
+        "entityId" : "__demo_inv__12",
+        "entityType" : "invoiceId",
+        "module" : "accounting",
+        "scheduleAt" : 1619345062733,
+        "workflowId" : "-MZ7UAfdfkRrWSP3GDEV"
+      },
+      "response" : {
+        "checkPlanAccountCode" : {
+          "message" : "checkPlanAccountCode - PASS",
+          "status" : "PASS"
+        },
+        "getPlanFromInvoice" : {
+          "message" : "Successfully Retrieved Plan",
+          "response" : {
+            "plan" : {
+              "plan" : {
+                "addon_applicability" : "all",
+                "charge_model" : "per_unit",
+                "currency_code" : "USD",
+                "enabled_in_hosted_pages" : true,
+                "enabled_in_portal" : true,
+                "free_quantity" : 0,
+                "giftable" : false,
+                "id" : "basic",
+                "is_shippable" : false,
+                "name" : "Basic",
+                "object" : "plan",
+                "period" : 1,
+                "period_unit" : "month",
+                "price" : 900,
+                "pricing_model" : "per_unit",
+                "show_description_in_invoices" : false,
+                "show_description_in_quotes" : false,
+                "status" : "active",
+                "taxable" : true,
+                "trial_period" : 1,
+                "trial_period_unit" : "month"
+              }
+            }
+          },
+          "status" : "PASS"
+        },
+        "retriveInvoice" : {
+          "message" : "Successfully Retrieved Invoice",
+          "response" : {
+            "invoice" : {
+              "amount_adjusted" : 0,
+              "amount_due" : 0,
+              "amount_paid" : 900,
+              "amount_to_collect" : 0,
+              "base_currency_code" : "USD",
+              "billing_address" : {
+                "first_name" : "active_billing_today",
+                "object" : "billing_address",
+                "validation_status" : "not_validated"
+              },
+              "credits_applied" : 0,
+              "currency_code" : "USD",
+              "customer_id" : "active_billing_today",
+              "date" : 1619008978,
+              "deleted" : false,
+              "due_date" : 1619008978,
+              "exchange_rate" : 1,
+              "first_invoice" : false,
+              "has_advance_charges" : false,
+              "id" : "__demo_inv__12",
+              "is_gifted" : false,
+              "line_items" : [ {
+                "amount" : 900,
+                "customer_id" : "active_billing_today",
+                "date_from" : 1619008978,
+                "date_to" : 1621600978,
+                "description" : "Basic",
+                "discount_amount" : 0,
+                "entity_id" : "basic",
+                "entity_type" : "plan",
+                "id" : "li___dev__8asu2SVCTA098j",
+                "is_taxed" : false,
+                "item_level_discount_amount" : 0,
+                "object" : "line_item",
+                "pricing_model" : "per_unit",
+                "quantity" : 1,
+                "subscription_id" : "active_billing_today",
+                "tax_amount" : 0,
+                "tax_exempt_reason" : "tax_not_configured",
+                "unit_amount" : 900
+              } ],
+              "linked_payments" : [ {
+                "applied_amount" : 900,
+                "applied_at" : 1619008979,
+                "txn_amount" : 900,
+                "txn_date" : 1619008979,
+                "txn_id" : "txn___dev__8asu2SVCTA188k",
+                "txn_status" : "success"
+              } ],
+              "net_term_days" : 0,
+              "object" : "invoice",
+              "paid_at" : 1619008979,
+              "price_type" : "tax_exclusive",
+              "recurring" : true,
+              "resource_version" : 1619008978349,
+              "round_off_amount" : 0,
+              "status" : "paid",
+              "sub_total" : 900,
+              "subscription_id" : "active_billing_today",
+              "tax" : 0,
+              "term_finalized" : true,
+              "total" : 900,
+              "updated_at" : 1619008978,
+              "write_off_amount" : 0
+            }
+          },
+          "status" : "PASS"
+        },
+        "verifyAccountCodeForInvoice" : {
+          "response" : {
+            "domain" : "mannar-test",
+            "entityId" : "__demo_inv__12",
+            "entityType" : "invoiceId",
+            "module" : "accounting",
+            "scheduleAt" : 1619345062733,
+            "workflowId" : "-MZ7UAfdfkRrWSP3GDEV"
+          }
+        }
+      },
+      "status" : "PASS",
+      "workflowId" : "-MZ7UAfdfkRrWSP3GDEV"
+    },
+    "-1825118888" : {
+      "definitionId" : "verifyAccountCodeForInvoice",
+      "domain" : "freshdesk",
+      "params" : {
+        "domain" : "mannar-test",
+        "entityId" : "__demo_inv__27",
+        "entityType" : "planId",
+        "module" : "accounting",
+        "scheduleAt" : 1619195634655,
+        "workflowId" : "-MYz_9CbgBqpNfnuOp_o"
+      },
+      "response" : {
+        "checkPlanAccountCode" : {
+          "message" : "checkPlanAccountCode - PASS",
+          "status" : "PASS"
+        },
+        "getPlanFromInvoice" : {
+          "message" : "Successfully Retrieved Plan",
+          "response" : {
+            "plan" : {
+              "plan" : {
+                "addon_applicability" : "all",
+                "charge_model" : "per_unit",
+                "currency_code" : "USD",
+                "enabled_in_hosted_pages" : true,
+                "enabled_in_portal" : true,
+                "free_quantity" : 0,
+                "giftable" : false,
+                "id" : "no-trial",
+                "is_shippable" : false,
+                "name" : "No Trial",
+                "object" : "plan",
+                "period" : 1,
+                "period_unit" : "month",
+                "price" : 900,
+                "pricing_model" : "per_unit",
+                "show_description_in_invoices" : false,
+                "show_description_in_quotes" : false,
+                "status" : "active",
+                "taxable" : true
+              }
+            }
+          },
+          "status" : "PASS"
+        },
+        "retriveInvoice" : {
+          "message" : "Successfully Retrieved Invoice",
+          "response" : {
+            "invoice" : {
+              "amount_adjusted" : 0,
+              "amount_due" : 0,
+              "amount_paid" : 900,
+              "amount_to_collect" : 0,
+              "base_currency_code" : "USD",
+              "billing_address" : {
+                "first_name" : "active_billing_in_four_days",
+                "object" : "billing_address",
+                "validation_status" : "not_validated"
+              },
+              "credits_applied" : 0,
+              "currency_code" : "USD",
+              "customer_id" : "active_billing_in_four_days",
+              "date" : 1619171358,
+              "deleted" : false,
+              "due_date" : 1619171358,
+              "exchange_rate" : 1,
+              "first_invoice" : false,
+              "has_advance_charges" : false,
+              "id" : "__demo_inv__27",
+              "is_gifted" : false,
+              "line_items" : [ {
+                "amount" : 900,
+                "customer_id" : "active_billing_in_four_days",
+                "date_from" : 1619171358,
+                "date_to" : 1621763358,
+                "description" : "No Trial",
+                "discount_amount" : 0,
+                "entity_id" : "no-trial",
+                "entity_type" : "plan",
+                "id" : "li___dev__KyVoGGSVOg16Gb",
+                "is_taxed" : false,
+                "item_level_discount_amount" : 0,
+                "object" : "line_item",
+                "pricing_model" : "per_unit",
+                "quantity" : 1,
+                "subscription_id" : "active_billing_in_four_days",
+                "tax_amount" : 0,
+                "tax_exempt_reason" : "export",
+                "unit_amount" : 900
+              } ],
+              "linked_payments" : [ {
+                "applied_amount" : 900,
+                "applied_at" : 1619171361,
+                "txn_amount" : 900,
+                "txn_date" : 1619171361,
+                "txn_id" : "txn___dev__KyVoGGSVOg1Cyc",
+                "txn_status" : "success"
+              } ],
+              "net_term_days" : 0,
+              "object" : "invoice",
+              "paid_at" : 1619171361,
+              "price_type" : "tax_exclusive",
+              "recurring" : true,
+              "resource_version" : 1619171361000,
+              "round_off_amount" : 0,
+              "status" : "paid",
+              "sub_total" : 900,
+              "subscription_id" : "active_billing_in_four_days",
+              "tax" : 0,
+              "term_finalized" : true,
+              "total" : 900,
+              "updated_at" : 1619171361,
+              "write_off_amount" : 0
+            }
+          },
+          "status" : "PASS"
+        },
+        "verifyAccountCodeForInvoice" : {
+          "response" : {
+            "domain" : "mannar-test",
+            "entityId" : "__demo_inv__27",
+            "entityType" : "planId",
+            "module" : "accounting",
+            "scheduleAt" : 1619195634655,
+            "workflowId" : "-MYz_9CbgBqpNfnuOp_o"
+          }
+        }
+      },
+      "status" : "PASS",
+      "workflowId" : "-MYz_9CbgBqpNfnuOp_o"
+    },
+    "-1599683323" : {
+      "definitionId" : "verifyAccountCodeForInvoice",
+      "domain" : "freshdesk",
+      "params" : {
+        "domain" : "mannar-test",
+        "entityId" : "__demo_inv__12",
+        "entityType" : "invoiceId",
+        "module" : "accounting",
+        "scheduleAt" : 1619345544415,
+        "workflowId" : "-MZ7W0Gt8qnjwVX_vk2U"
+      },
+      "response" : {
+        "checkPlanAccountCode" : {
+          "message" : "checkPlanAccountCode - PASS",
+          "status" : "PASS"
+        },
+        "getPlanFromInvoice" : {
+          "message" : "Successfully Retrieved Plan",
+          "response" : {
+            "plan" : {
+              "plan" : {
+                "accounting_code" : "4000",
+                "addon_applicability" : "all",
+                "charge_model" : "per_unit",
+                "currency_code" : "USD",
+                "enabled_in_hosted_pages" : true,
+                "enabled_in_portal" : true,
+                "free_quantity" : 0,
+                "giftable" : false,
+                "id" : "basic",
+                "invoice_name" : "Basic",
+                "is_shippable" : false,
+                "name" : "Basic",
+                "object" : "plan",
+                "period" : 1,
+                "period_unit" : "month",
+                "price" : 900,
+                "pricing_model" : "per_unit",
+                "resource_version" : 1619345424000,
+                "show_description_in_invoices" : false,
+                "show_description_in_quotes" : false,
+                "status" : "active",
+                "taxable" : true,
+                "trial_period" : 1,
+                "trial_period_unit" : "month",
+                "updated_at" : 1619345424
+              }
+            }
+          },
+          "status" : "PASS"
+        },
+        "retriveInvoice" : {
+          "message" : "Successfully Retrieved Invoice",
+          "response" : {
+            "invoice" : {
+              "amount_adjusted" : 0,
+              "amount_due" : 0,
+              "amount_paid" : 900,
+              "amount_to_collect" : 0,
+              "base_currency_code" : "USD",
+              "billing_address" : {
+                "first_name" : "active_billing_today",
+                "object" : "billing_address",
+                "validation_status" : "not_validated"
+              },
+              "credits_applied" : 0,
+              "currency_code" : "USD",
+              "customer_id" : "active_billing_today",
+              "date" : 1619008978,
+              "deleted" : false,
+              "due_date" : 1619008978,
+              "exchange_rate" : 1,
+              "first_invoice" : false,
+              "has_advance_charges" : false,
+              "id" : "__demo_inv__12",
+              "is_gifted" : false,
+              "line_items" : [ {
+                "amount" : 900,
+                "customer_id" : "active_billing_today",
+                "date_from" : 1619008978,
+                "date_to" : 1621600978,
+                "description" : "Basic",
+                "discount_amount" : 0,
+                "entity_id" : "basic",
+                "entity_type" : "plan",
+                "id" : "li___dev__8asu2SVCTA098j",
+                "is_taxed" : false,
+                "item_level_discount_amount" : 0,
+                "object" : "line_item",
+                "pricing_model" : "per_unit",
+                "quantity" : 1,
+                "subscription_id" : "active_billing_today",
+                "tax_amount" : 0,
+                "tax_exempt_reason" : "tax_not_configured",
+                "unit_amount" : 900
+              } ],
+              "linked_payments" : [ {
+                "applied_amount" : 900,
+                "applied_at" : 1619008979,
+                "txn_amount" : 900,
+                "txn_date" : 1619008979,
+                "txn_id" : "txn___dev__8asu2SVCTA188k",
+                "txn_status" : "success"
+              } ],
+              "net_term_days" : 0,
+              "object" : "invoice",
+              "paid_at" : 1619008979,
+              "price_type" : "tax_exclusive",
+              "recurring" : true,
+              "resource_version" : 1619008978349,
+              "round_off_amount" : 0,
+              "status" : "paid",
+              "sub_total" : 900,
+              "subscription_id" : "active_billing_today",
+              "tax" : 0,
+              "term_finalized" : true,
+              "total" : 900,
+              "updated_at" : 1619008978,
+              "write_off_amount" : 0
+            }
+          },
+          "status" : "PASS"
+        },
+        "verifyAccountCodeForInvoice" : {
+          "response" : {
+            "domain" : "mannar-test",
+            "entityId" : "__demo_inv__12",
+            "entityType" : "invoiceId",
+            "module" : "accounting",
+            "scheduleAt" : 1619345544415,
+            "workflowId" : "-MZ7W0Gt8qnjwVX_vk2U"
+          }
+        }
+      },
+      "status" : "PASS",
+      "workflowId" : "-MZ7W0Gt8qnjwVX_vk2U"
+    },
+    "-1266145347" : {
+      "definitionId" : "verifyAccountCodeForInvoice",
+      "domain" : "freshdesk",
+      "params" : {
+        "domain" : "mannar-test",
+        "entityId" : "__demo_inv__27",
+        "entityType" : "invoiceId",
+        "module" : "accounting",
+        "scheduleAt" : 1619194540019,
+        "workflowId" : "-MYzVyy11FSVRir9tOal"
+      },
+      "response" : {
+        "checkPlanAccountCode" : {
+          "message" : "checkPlanAccountCode - PASS",
+          "status" : "PASS"
+        },
+        "getPlanFromInvoice" : {
+          "message" : "Successfully Retrieved Plan",
+          "response" : {
+            "plan" : {
+              "plan" : {
+                "addon_applicability" : "all",
+                "charge_model" : "per_unit",
+                "currency_code" : "USD",
+                "enabled_in_hosted_pages" : true,
+                "enabled_in_portal" : true,
+                "free_quantity" : 0,
+                "giftable" : false,
+                "id" : "no-trial",
+                "is_shippable" : false,
+                "name" : "No Trial",
+                "object" : "plan",
+                "period" : 1,
+                "period_unit" : "month",
+                "price" : 900,
+                "pricing_model" : "per_unit",
+                "show_description_in_invoices" : false,
+                "show_description_in_quotes" : false,
+                "status" : "active",
+                "taxable" : true
+              }
+            }
+          },
+          "status" : "PASS"
+        },
+        "retriveInvoice" : {
+          "message" : "Successfully Retrieved Invoice",
+          "response" : {
+            "invoice" : {
+              "amount_adjusted" : 0,
+              "amount_due" : 0,
+              "amount_paid" : 900,
+              "amount_to_collect" : 0,
+              "base_currency_code" : "USD",
+              "billing_address" : {
+                "first_name" : "active_billing_in_four_days",
+                "object" : "billing_address",
+                "validation_status" : "not_validated"
+              },
+              "credits_applied" : 0,
+              "currency_code" : "USD",
+              "customer_id" : "active_billing_in_four_days",
+              "date" : 1619171358,
+              "deleted" : false,
+              "due_date" : 1619171358,
+              "exchange_rate" : 1,
+              "first_invoice" : false,
+              "has_advance_charges" : false,
+              "id" : "__demo_inv__27",
+              "is_gifted" : false,
+              "line_items" : [ {
+                "amount" : 900,
+                "customer_id" : "active_billing_in_four_days",
+                "date_from" : 1619171358,
+                "date_to" : 1621763358,
+                "description" : "No Trial",
+                "discount_amount" : 0,
+                "entity_id" : "no-trial",
+                "entity_type" : "plan",
+                "id" : "li___dev__KyVoGGSVOg16Gb",
+                "is_taxed" : false,
+                "item_level_discount_amount" : 0,
+                "object" : "line_item",
+                "pricing_model" : "per_unit",
+                "quantity" : 1,
+                "subscription_id" : "active_billing_in_four_days",
+                "tax_amount" : 0,
+                "tax_exempt_reason" : "export",
+                "unit_amount" : 900
+              } ],
+              "linked_payments" : [ {
+                "applied_amount" : 900,
+                "applied_at" : 1619171361,
+                "txn_amount" : 900,
+                "txn_date" : 1619171361,
+                "txn_id" : "txn___dev__KyVoGGSVOg1Cyc",
+                "txn_status" : "success"
+              } ],
+              "net_term_days" : 0,
+              "object" : "invoice",
+              "paid_at" : 1619171361,
+              "price_type" : "tax_exclusive",
+              "recurring" : true,
+              "resource_version" : 1619171361000,
+              "round_off_amount" : 0,
+              "status" : "paid",
+              "sub_total" : 900,
+              "subscription_id" : "active_billing_in_four_days",
+              "tax" : 0,
+              "term_finalized" : true,
+              "total" : 900,
+              "updated_at" : 1619171361,
+              "write_off_amount" : 0
+            }
+          },
+          "status" : "PASS"
+        },
+        "verifyAccountCodeForInvoice" : {
+          "response" : {
+            "domain" : "mannar-test",
+            "entityId" : "__demo_inv__27",
+            "entityType" : "invoiceId",
+            "module" : "accounting",
+            "scheduleAt" : 1619194540019,
+            "workflowId" : "-MYzVyy11FSVRir9tOal"
+          }
+        }
+      },
+      "status" : "PASS",
+      "workflowId" : "-MYzVyy11FSVRir9tOal"
+    },
+    "-895586560" : {
+      "definitionId" : "verifyAccountCodeForInvoice",
+      "domain" : "freshdesk",
+      "params" : {
+        "domain" : "mannar-test",
+        "entityId" : "__demo_inv__12",
+        "entityType" : "invoiceId",
+        "module" : "accounting",
+        "scheduleAt" : 1619421483350,
+        "workflowId" : "-MZC1h2kQ8mIzsf6E5Wt"
+      },
+      "response" : {
+        "checkPlanAccountCode" : {
+          "message" : "checkPlanAccountCode - PASS",
+          "status" : "PASS"
+        },
+        "getPlanFromInvoice" : {
+          "message" : "Successfully Retrieved Plan",
+          "response" : {
+            "plan" : {
+              "plan" : {
+                "addon_applicability" : "all",
+                "charge_model" : "per_unit",
+                "currency_code" : "USD",
+                "enabled_in_hosted_pages" : true,
+                "enabled_in_portal" : true,
+                "free_quantity" : 0,
+                "giftable" : false,
+                "id" : "basic",
+                "is_shippable" : false,
+                "name" : "Basic",
+                "object" : "plan",
+                "period" : 1,
+                "period_unit" : "month",
+                "price" : 900,
+                "pricing_model" : "per_unit",
+                "show_description_in_invoices" : false,
+                "show_description_in_quotes" : false,
+                "status" : "active",
+                "taxable" : true,
+                "trial_period" : 1,
+                "trial_period_unit" : "month"
+              }
+            }
+          },
+          "status" : "PASS"
+        },
+        "retriveInvoice" : {
+          "message" : "Successfully Retrieved Invoice",
+          "response" : {
+            "invoice" : {
+              "amount_adjusted" : 0,
+              "amount_due" : 0,
+              "amount_paid" : 900,
+              "amount_to_collect" : 0,
+              "base_currency_code" : "USD",
+              "billing_address" : {
+                "first_name" : "active_billing_today",
+                "object" : "billing_address",
+                "validation_status" : "not_validated"
+              },
+              "credits_applied" : 0,
+              "currency_code" : "USD",
+              "customer_id" : "active_billing_today",
+              "date" : 1619084653,
+              "deleted" : false,
+              "due_date" : 1619084653,
+              "exchange_rate" : 1,
+              "first_invoice" : false,
+              "has_advance_charges" : false,
+              "id" : "__demo_inv__12",
+              "is_gifted" : false,
+              "line_items" : [ {
+                "amount" : 900,
+                "customer_id" : "active_billing_today",
+                "date_from" : 1619084653,
+                "date_to" : 1621676653,
+                "description" : "Basic",
+                "discount_amount" : 0,
+                "entity_id" : "basic",
+                "entity_type" : "plan",
+                "id" : "li___dev__8asnnSVHagLu8j",
+                "is_taxed" : false,
+                "item_level_discount_amount" : 0,
+                "object" : "line_item",
+                "pricing_model" : "per_unit",
+                "quantity" : 1,
+                "subscription_id" : "active_billing_today",
+                "tax_amount" : 0,
+                "tax_exempt_reason" : "tax_not_configured",
+                "unit_amount" : 900
+              } ],
+              "linked_payments" : [ {
+                "applied_amount" : 900,
+                "applied_at" : 1619084654,
+                "txn_amount" : 900,
+                "txn_date" : 1619084654,
+                "txn_id" : "txn___dev__8asnnSVHagMZ8k",
+                "txn_status" : "success"
+              } ],
+              "net_term_days" : 0,
+              "object" : "invoice",
+              "paid_at" : 1619084654,
+              "price_type" : "tax_exclusive",
+              "recurring" : true,
+              "resource_version" : 1619084653529,
+              "round_off_amount" : 0,
+              "status" : "paid",
+              "sub_total" : 900,
+              "subscription_id" : "active_billing_today",
+              "tax" : 0,
+              "term_finalized" : true,
+              "total" : 900,
+              "updated_at" : 1619084653,
+              "write_off_amount" : 0
+            }
+          },
+          "status" : "PASS"
+        },
+        "verifyAccountCodeForInvoice" : {
+          "response" : {
+            "domain" : "mannar-test",
+            "entityId" : "__demo_inv__12",
+            "entityType" : "invoiceId",
+            "module" : "accounting",
+            "scheduleAt" : 1619421483350,
+            "workflowId" : "-MZC1h2kQ8mIzsf6E5Wt"
+          }
+        }
+      },
+      "status" : "PASS",
+      "workflowId" : "-MZC1h2kQ8mIzsf6E5Wt"
+    },
+    "-796570316" : {
+      "definitionId" : "verifyAccountCodeForInvoice",
+      "domain" : "freshdesk",
+      "params" : {
+        "domain" : "mannar-test",
+        "entityId" : "__demo_inv__27",
+        "entityType" : "invoiceId",
+        "module" : "accounting",
+        "scheduleAt" : 1619194400200,
+        "workflowId" : "-MYzVRpPwXcTUd5C3l2C"
+      },
+      "response" : {
+        "verifyAccountCodeForInvoice" : {
+          "response" : {
+            "domain" : "mannar-test",
+            "entityId" : "__demo_inv__27",
+            "entityType" : "invoiceId",
+            "module" : "accounting",
+            "scheduleAt" : 1619194400200,
+            "workflowId" : "-MYzVRpPwXcTUd5C3l2C"
+          }
+        }
+      },
+      "status" : "FAIL",
+      "workflowId" : "-MYzVRpPwXcTUd5C3l2C"
+    },
+    "398460996" : {
+      "definitionId" : "verifyAccountCodeForInvoice",
+      "domain" : "freshdesk",
+      "params" : {
+        "domain" : "mannar-test",
+        "entityId" : "__demo_inv__12",
+        "entityType" : "invoiceId",
+        "module" : "accounting",
+        "scheduleAt" : 1619345830436,
+        "workflowId" : "-MZ7X6H7s-EvX0ACFqfq"
+      },
+      "response" : {
+        "checkPlanAccountCode" : {
+          "message" : "checkPlanAccountCode - PASS",
+          "status" : "PASS"
+        },
+        "getPlanFromInvoice" : {
+          "message" : "Successfully Retrieved Plan",
+          "response" : {
+            "plan" : {
+              "plan" : {
+                "addon_applicability" : "all",
+                "charge_model" : "per_unit",
+                "currency_code" : "USD",
+                "enabled_in_hosted_pages" : true,
+                "enabled_in_portal" : true,
+                "free_quantity" : 0,
+                "giftable" : false,
+                "id" : "basic",
+                "is_shippable" : false,
+                "name" : "Basic",
+                "object" : "plan",
+                "period" : 1,
+                "period_unit" : "month",
+                "price" : 900,
+                "pricing_model" : "per_unit",
+                "show_description_in_invoices" : false,
+                "show_description_in_quotes" : false,
+                "status" : "active",
+                "taxable" : true,
+                "trial_period" : 1,
+                "trial_period_unit" : "month"
+              }
+            }
+          },
+          "status" : "PASS"
+        },
+        "retriveInvoice" : {
+          "message" : "Successfully Retrieved Invoice",
+          "response" : {
+            "invoice" : {
+              "amount_adjusted" : 0,
+              "amount_due" : 0,
+              "amount_paid" : 900,
+              "amount_to_collect" : 0,
+              "base_currency_code" : "USD",
+              "billing_address" : {
+                "first_name" : "active_billing_today",
+                "object" : "billing_address",
+                "validation_status" : "not_validated"
+              },
+              "credits_applied" : 0,
+              "currency_code" : "USD",
+              "customer_id" : "active_billing_today",
+              "date" : 1619084653,
+              "deleted" : false,
+              "due_date" : 1619084653,
+              "exchange_rate" : 1,
+              "first_invoice" : false,
+              "has_advance_charges" : false,
+              "id" : "__demo_inv__12",
+              "is_gifted" : false,
+              "line_items" : [ {
+                "amount" : 900,
+                "customer_id" : "active_billing_today",
+                "date_from" : 1619084653,
+                "date_to" : 1621676653,
+                "description" : "Basic",
+                "discount_amount" : 0,
+                "entity_id" : "basic",
+                "entity_type" : "plan",
+                "id" : "li___dev__8asnnSVHagLu8j",
+                "is_taxed" : false,
+                "item_level_discount_amount" : 0,
+                "object" : "line_item",
+                "pricing_model" : "per_unit",
+                "quantity" : 1,
+                "subscription_id" : "active_billing_today",
+                "tax_amount" : 0,
+                "tax_exempt_reason" : "tax_not_configured",
+                "unit_amount" : 900
+              } ],
+              "linked_payments" : [ {
+                "applied_amount" : 900,
+                "applied_at" : 1619084654,
+                "txn_amount" : 900,
+                "txn_date" : 1619084654,
+                "txn_id" : "txn___dev__8asnnSVHagMZ8k",
+                "txn_status" : "success"
+              } ],
+              "net_term_days" : 0,
+              "object" : "invoice",
+              "paid_at" : 1619084654,
+              "price_type" : "tax_exclusive",
+              "recurring" : true,
+              "resource_version" : 1619084653529,
+              "round_off_amount" : 0,
+              "status" : "paid",
+              "sub_total" : 900,
+              "subscription_id" : "active_billing_today",
+              "tax" : 0,
+              "term_finalized" : true,
+              "total" : 900,
+              "updated_at" : 1619084653,
+              "write_off_amount" : 0
+            }
+          },
+          "status" : "PASS"
+        },
+        "verifyAccountCodeForInvoice" : {
+          "response" : {
+            "domain" : "mannar-test",
+            "entityId" : "__demo_inv__12",
+            "entityType" : "invoiceId",
+            "module" : "accounting",
+            "scheduleAt" : 1619345830436,
+            "workflowId" : "-MZ7X6H7s-EvX0ACFqfq"
+          }
+        }
+      },
+      "status" : "PASS",
+      "workflowId" : "-MZ7X6H7s-EvX0ACFqfq"
+    },
+    "503235424" : {
+      "definitionId" : "verifyAccountCodeForInvoice",
+      "domain" : "freshdesk",
+      "params" : {
+        "domain" : "mannar-test",
+        "entityType" : "PlanId",
+        "entityValue" : 1234,
+        "invoiceId" : "__demo_inv__23",
+        "module" : "accounting",
+        "scheduleAt" : "22/04/2021",
+        "workflowId" : "jobId1"
+      },
+      "response" : {
+        "checkPlanAccountCode" : {
+          "message" : "checkPlanAccountCode - PASS",
+          "status" : "PASS"
+        },
+        "getPlanFromInvoice" : {
+          "message" : "Successfully Retrieved Plan",
+          "response" : {
+            "plan" : {
+              "plan" : {
+                "addon_applicability" : "all",
+                "charge_model" : "per_unit",
+                "currency_code" : "USD",
+                "enabled_in_hosted_pages" : true,
+                "enabled_in_portal" : true,
+                "free_quantity" : 0,
+                "giftable" : false,
+                "id" : "basic",
+                "is_shippable" : false,
+                "name" : "Basic",
+                "object" : "plan",
+                "period" : 1,
+                "period_unit" : "month",
+                "price" : 900,
+                "pricing_model" : "per_unit",
+                "show_description_in_invoices" : false,
+                "show_description_in_quotes" : false,
+                "status" : "active",
+                "taxable" : true,
+                "trial_period" : 1,
+                "trial_period_unit" : "month"
+              }
+            }
+          },
+          "status" : "PASS"
+        },
+        "retriveInvoice" : {
+          "message" : "Successfully Retrieved Invoice",
+          "response" : {
+            "invoice" : {
+              "amount_adjusted" : 0,
+              "amount_due" : 0,
+              "amount_paid" : 0,
+              "amount_to_collect" : 0,
+              "applied_credits" : [ {
+                "applied_amount" : 600,
+                "applied_at" : 1618990990,
+                "cn_create_reason_code" : "Subscription Change",
+                "cn_date" : 1618990990,
+                "cn_id" : "__demo_cn__3",
+                "cn_reason_code" : "subscription_change",
+                "cn_status" : "refund_due"
+              } ],
+              "base_currency_code" : "USD",
+              "billing_address" : {
+                "first_name" : "active_downgraded",
+                "object" : "billing_address",
+                "validation_status" : "not_validated"
+              },
+              "credits_applied" : 600,
+              "currency_code" : "USD",
+              "customer_id" : "active_downgraded",
+              "date" : 1618990989,
+              "deleted" : false,
+              "due_date" : 1618990989,
+              "exchange_rate" : 1,
+              "first_invoice" : false,
+              "has_advance_charges" : false,
+              "id" : "__demo_inv__23",
+              "is_gifted" : false,
+              "line_items" : [ {
+                "amount" : 600,
+                "customer_id" : "active_downgraded",
+                "date_from" : 1618990989,
+                "date_to" : 1620718989,
+                "description" : "Basic - Prorated Charges",
+                "discount_amount" : 0,
+                "entity_id" : "basic",
+                "entity_type" : "plan",
+                "id" : "li___dev__8asu2SVCTCZWDt",
+                "is_taxed" : false,
+                "item_level_discount_amount" : 0,
+                "object" : "line_item",
+                "pricing_model" : "per_unit",
+                "quantity" : 1,
+                "subscription_id" : "active_downgraded",
+                "tax_amount" : 0,
+                "tax_exempt_reason" : "tax_not_configured",
+                "unit_amount" : 600
+              } ],
+              "net_term_days" : 0,
+              "object" : "invoice",
+              "paid_at" : 1618990989,
+              "price_type" : "tax_exclusive",
+              "recurring" : true,
+              "resource_version" : 1618990990000,
+              "round_off_amount" : 0,
+              "status" : "paid",
+              "sub_total" : 600,
+              "subscription_id" : "active_downgraded",
+              "tax" : 0,
+              "term_finalized" : true,
+              "total" : 600,
+              "updated_at" : 1618990990,
+              "write_off_amount" : 0
+            }
+          },
+          "status" : "PASS"
+        },
+        "verifyAccountCodeForInvoice" : {
+          "response" : {
+            "domain" : "mannar-test",
+            "entityType" : "PlanId",
+            "entityValue" : 1234,
+            "invoiceId" : "__demo_inv__23",
+            "module" : "accounting",
+            "scheduleAt" : "22/04/2021",
+            "workflowId" : "jobId1"
+          }
+        }
+      },
+      "status" : "PASS",
+      "workflowId" : "jobId1"
+    },
+    "778762699" : {
+      "definitionId" : "verifyAccountCodeForInvoice",
+      "domain" : "freshdesk",
+      "params" : {
+        "domain" : "mannar-test",
+        "entityId" : "__demo_inv__27",
+        "entityType" : "invoiceId",
+        "module" : "accounting",
+        "scheduleAt" : 1619195107040,
+        "workflowId" : "-MYzY8Oedcj0UEwnhDIt"
+      },
+      "response" : {
+        "checkPlanAccountCode" : {
+          "message" : "checkPlanAccountCode - PASS",
+          "status" : "PASS"
+        },
+        "getPlanFromInvoice" : {
+          "message" : "Successfully Retrieved Plan",
+          "response" : {
+            "plan" : {
+              "plan" : {
+                "addon_applicability" : "all",
+                "charge_model" : "per_unit",
+                "currency_code" : "USD",
+                "enabled_in_hosted_pages" : true,
+                "enabled_in_portal" : true,
+                "free_quantity" : 0,
+                "giftable" : false,
+                "id" : "no-trial",
+                "is_shippable" : false,
+                "name" : "No Trial",
+                "object" : "plan",
+                "period" : 1,
+                "period_unit" : "month",
+                "price" : 900,
+                "pricing_model" : "per_unit",
+                "show_description_in_invoices" : false,
+                "show_description_in_quotes" : false,
+                "status" : "active",
+                "taxable" : true
+              }
+            }
+          },
+          "status" : "PASS"
+        },
+        "retriveInvoice" : {
+          "message" : "Successfully Retrieved Invoice",
+          "response" : {
+            "invoice" : {
+              "amount_adjusted" : 0,
+              "amount_due" : 0,
+              "amount_paid" : 900,
+              "amount_to_collect" : 0,
+              "base_currency_code" : "USD",
+              "billing_address" : {
+                "first_name" : "active_billing_in_four_days",
+                "object" : "billing_address",
+                "validation_status" : "not_validated"
+              },
+              "credits_applied" : 0,
+              "currency_code" : "USD",
+              "customer_id" : "active_billing_in_four_days",
+              "date" : 1619171358,
+              "deleted" : false,
+              "due_date" : 1619171358,
+              "exchange_rate" : 1,
+              "first_invoice" : false,
+              "has_advance_charges" : false,
+              "id" : "__demo_inv__27",
+              "is_gifted" : false,
+              "line_items" : [ {
+                "amount" : 900,
+                "customer_id" : "active_billing_in_four_days",
+                "date_from" : 1619171358,
+                "date_to" : 1621763358,
+                "description" : "No Trial",
+                "discount_amount" : 0,
+                "entity_id" : "no-trial",
+                "entity_type" : "plan",
+                "id" : "li___dev__KyVoGGSVOg16Gb",
+                "is_taxed" : false,
+                "item_level_discount_amount" : 0,
+                "object" : "line_item",
+                "pricing_model" : "per_unit",
+                "quantity" : 1,
+                "subscription_id" : "active_billing_in_four_days",
+                "tax_amount" : 0,
+                "tax_exempt_reason" : "export",
+                "unit_amount" : 900
+              } ],
+              "linked_payments" : [ {
+                "applied_amount" : 900,
+                "applied_at" : 1619171361,
+                "txn_amount" : 900,
+                "txn_date" : 1619171361,
+                "txn_id" : "txn___dev__KyVoGGSVOg1Cyc",
+                "txn_status" : "success"
+              } ],
+              "net_term_days" : 0,
+              "object" : "invoice",
+              "paid_at" : 1619171361,
+              "price_type" : "tax_exclusive",
+              "recurring" : true,
+              "resource_version" : 1619171361000,
+              "round_off_amount" : 0,
+              "status" : "paid",
+              "sub_total" : 900,
+              "subscription_id" : "active_billing_in_four_days",
+              "tax" : 0,
+              "term_finalized" : true,
+              "total" : 900,
+              "updated_at" : 1619171361,
+              "write_off_amount" : 0
+            }
+          },
+          "status" : "PASS"
+        },
+        "verifyAccountCodeForInvoice" : {
+          "response" : {
+            "domain" : "mannar-test",
+            "entityId" : "__demo_inv__27",
+            "entityType" : "invoiceId",
+            "module" : "accounting",
+            "scheduleAt" : 1619195107040,
+            "workflowId" : "-MYzY8Oedcj0UEwnhDIt"
+          }
+        }
+      },
+      "status" : "PASS",
+      "workflowId" : "-MYzY8Oedcj0UEwnhDIt"
+    },
+    "803233850" : {
+      "definitionId" : "verifyAccountCodeForInvoice",
+      "domain" : "freshdesk",
+      "params" : {
+        "domain" : "mannar-test",
+        "entityId" : "__demo_inv__27",
+        "entityType" : "invoiceId",
+        "module" : "accounting",
+        "scheduleAt" : 1619195283297,
+        "workflowId" : "-MYzYoQgEs8Z7NiDiye6"
+      },
+      "response" : {
+        "checkPlanAccountCode" : {
+          "message" : "checkPlanAccountCode - PASS",
+          "status" : "PASS"
+        },
+        "getPlanFromInvoice" : {
+          "message" : "Successfully Retrieved Plan",
+          "response" : {
+            "plan" : {
+              "plan" : {
+                "addon_applicability" : "all",
+                "charge_model" : "per_unit",
+                "currency_code" : "USD",
+                "enabled_in_hosted_pages" : true,
+                "enabled_in_portal" : true,
+                "free_quantity" : 0,
+                "giftable" : false,
+                "id" : "no-trial",
+                "is_shippable" : false,
+                "name" : "No Trial",
+                "object" : "plan",
+                "period" : 1,
+                "period_unit" : "month",
+                "price" : 900,
+                "pricing_model" : "per_unit",
+                "show_description_in_invoices" : false,
+                "show_description_in_quotes" : false,
+                "status" : "active",
+                "taxable" : true
+              }
+            }
+          },
+          "status" : "PASS"
+        },
+        "retriveInvoice" : {
+          "message" : "Successfully Retrieved Invoice",
+          "response" : {
+            "invoice" : {
+              "amount_adjusted" : 0,
+              "amount_due" : 0,
+              "amount_paid" : 900,
+              "amount_to_collect" : 0,
+              "base_currency_code" : "USD",
+              "billing_address" : {
+                "first_name" : "active_billing_in_four_days",
+                "object" : "billing_address",
+                "validation_status" : "not_validated"
+              },
+              "credits_applied" : 0,
+              "currency_code" : "USD",
+              "customer_id" : "active_billing_in_four_days",
+              "date" : 1619171358,
+              "deleted" : false,
+              "due_date" : 1619171358,
+              "exchange_rate" : 1,
+              "first_invoice" : false,
+              "has_advance_charges" : false,
+              "id" : "__demo_inv__27",
+              "is_gifted" : false,
+              "line_items" : [ {
+                "amount" : 900,
+                "customer_id" : "active_billing_in_four_days",
+                "date_from" : 1619171358,
+                "date_to" : 1621763358,
+                "description" : "No Trial",
+                "discount_amount" : 0,
+                "entity_id" : "no-trial",
+                "entity_type" : "plan",
+                "id" : "li___dev__KyVoGGSVOg16Gb",
+                "is_taxed" : false,
+                "item_level_discount_amount" : 0,
+                "object" : "line_item",
+                "pricing_model" : "per_unit",
+                "quantity" : 1,
+                "subscription_id" : "active_billing_in_four_days",
+                "tax_amount" : 0,
+                "tax_exempt_reason" : "export",
+                "unit_amount" : 900
+              } ],
+              "linked_payments" : [ {
+                "applied_amount" : 900,
+                "applied_at" : 1619171361,
+                "txn_amount" : 900,
+                "txn_date" : 1619171361,
+                "txn_id" : "txn___dev__KyVoGGSVOg1Cyc",
+                "txn_status" : "success"
+              } ],
+              "net_term_days" : 0,
+              "object" : "invoice",
+              "paid_at" : 1619171361,
+              "price_type" : "tax_exclusive",
+              "recurring" : true,
+              "resource_version" : 1619171361000,
+              "round_off_amount" : 0,
+              "status" : "paid",
+              "sub_total" : 900,
+              "subscription_id" : "active_billing_in_four_days",
+              "tax" : 0,
+              "term_finalized" : true,
+              "total" : 900,
+              "updated_at" : 1619171361,
+              "write_off_amount" : 0
+            }
+          },
+          "status" : "PASS"
+        },
+        "verifyAccountCodeForInvoice" : {
+          "response" : {
+            "domain" : "mannar-test",
+            "entityId" : "__demo_inv__27",
+            "entityType" : "invoiceId",
+            "module" : "accounting",
+            "scheduleAt" : 1619195283297,
+            "workflowId" : "-MYzYoQgEs8Z7NiDiye6"
+          }
+        }
+      },
+      "status" : "PASS",
+      "workflowId" : "-MYzYoQgEs8Z7NiDiye6"
+    },
+    "812047437" : {
+      "definitionId" : "verifyAccountCodeForInvoice",
+      "domain" : "freshdesk",
+      "params" : {
+        "domain" : "mannar-test",
+        "entityId" : "__demo_inv__12",
+        "entityType" : "invoiceId",
+        "module" : "accounting",
+        "scheduleAt" : 1619346380555,
+        "workflowId" : "-MZ7ZC_urY_LsWPOW_2Y"
+      },
+      "response" : {
+        "checkPlanAccountCode" : {
+          "message" : "checkPlanAccountCode - PASS",
+          "status" : "PASS"
+        },
+        "getPlanFromInvoice" : {
+          "message" : "Successfully Retrieved Plan",
+          "response" : {
+            "plan" : {
+              "plan" : {
+                "addon_applicability" : "all",
+                "charge_model" : "per_unit",
+                "currency_code" : "USD",
+                "enabled_in_hosted_pages" : true,
+                "enabled_in_portal" : true,
+                "free_quantity" : 0,
+                "giftable" : false,
+                "id" : "basic",
+                "is_shippable" : false,
+                "name" : "Basic",
+                "object" : "plan",
+                "period" : 1,
+                "period_unit" : "month",
+                "price" : 900,
+                "pricing_model" : "per_unit",
+                "show_description_in_invoices" : false,
+                "show_description_in_quotes" : false,
+                "status" : "active",
+                "taxable" : true,
+                "trial_period" : 1,
+                "trial_period_unit" : "month"
+              }
+            }
+          },
+          "status" : "PASS"
+        },
+        "retriveInvoice" : {
+          "message" : "Successfully Retrieved Invoice",
+          "response" : {
+            "invoice" : {
+              "amount_adjusted" : 0,
+              "amount_due" : 0,
+              "amount_paid" : 900,
+              "amount_to_collect" : 0,
+              "base_currency_code" : "USD",
+              "billing_address" : {
+                "first_name" : "active_billing_today",
+                "object" : "billing_address",
+                "validation_status" : "not_validated"
+              },
+              "credits_applied" : 0,
+              "currency_code" : "USD",
+              "customer_id" : "active_billing_today",
+              "date" : 1619084653,
+              "deleted" : false,
+              "due_date" : 1619084653,
+              "exchange_rate" : 1,
+              "first_invoice" : false,
+              "has_advance_charges" : false,
+              "id" : "__demo_inv__12",
+              "is_gifted" : false,
+              "line_items" : [ {
+                "amount" : 900,
+                "customer_id" : "active_billing_today",
+                "date_from" : 1619084653,
+                "date_to" : 1621676653,
+                "description" : "Basic",
+                "discount_amount" : 0,
+                "entity_id" : "basic",
+                "entity_type" : "plan",
+                "id" : "li___dev__8asnnSVHagLu8j",
+                "is_taxed" : false,
+                "item_level_discount_amount" : 0,
+                "object" : "line_item",
+                "pricing_model" : "per_unit",
+                "quantity" : 1,
+                "subscription_id" : "active_billing_today",
+                "tax_amount" : 0,
+                "tax_exempt_reason" : "tax_not_configured",
+                "unit_amount" : 900
+              } ],
+              "linked_payments" : [ {
+                "applied_amount" : 900,
+                "applied_at" : 1619084654,
+                "txn_amount" : 900,
+                "txn_date" : 1619084654,
+                "txn_id" : "txn___dev__8asnnSVHagMZ8k",
+                "txn_status" : "success"
+              } ],
+              "net_term_days" : 0,
+              "object" : "invoice",
+              "paid_at" : 1619084654,
+              "price_type" : "tax_exclusive",
+              "recurring" : true,
+              "resource_version" : 1619084653529,
+              "round_off_amount" : 0,
+              "status" : "paid",
+              "sub_total" : 900,
+              "subscription_id" : "active_billing_today",
+              "tax" : 0,
+              "term_finalized" : true,
+              "total" : 900,
+              "updated_at" : 1619084653,
+              "write_off_amount" : 0
+            }
+          },
+          "status" : "PASS"
+        },
+        "verifyAccountCodeForInvoice" : {
+          "response" : {
+            "domain" : "mannar-test",
+            "entityId" : "__demo_inv__12",
+            "entityType" : "invoiceId",
+            "module" : "accounting",
+            "scheduleAt" : 1619346380555,
+            "workflowId" : "-MZ7ZC_urY_LsWPOW_2Y"
+          }
+        }
+      },
+      "status" : "PASS",
+      "workflowId" : "-MZ7ZC_urY_LsWPOW_2Y"
+    },
+    "1116312431" : {
+      "definitionId" : "verifyAccountCodeForInvoice",
+      "domain" : "freshdesk",
+      "params" : {
+        "domain" : "mannar-test",
+        "entityId" : "__demo_inv__27",
+        "entityType" : "invoiceId",
+        "module" : "accounting",
+        "scheduleAt" : 1619194479120,
+        "workflowId" : "-MYzVk5KV1gqu81zgIUE"
+      },
+      "response" : {
+        "checkPlanAccountCode" : {
+          "message" : "checkPlanAccountCode - PASS",
+          "status" : "PASS"
+        },
+        "getPlanFromInvoice" : {
+          "message" : "Successfully Retrieved Plan",
+          "response" : {
+            "plan" : {
+              "plan" : {
+                "addon_applicability" : "all",
+                "charge_model" : "per_unit",
+                "currency_code" : "USD",
+                "enabled_in_hosted_pages" : true,
+                "enabled_in_portal" : true,
+                "free_quantity" : 0,
+                "giftable" : false,
+                "id" : "no-trial",
+                "is_shippable" : false,
+                "name" : "No Trial",
+                "object" : "plan",
+                "period" : 1,
+                "period_unit" : "month",
+                "price" : 900,
+                "pricing_model" : "per_unit",
+                "show_description_in_invoices" : false,
+                "show_description_in_quotes" : false,
+                "status" : "active",
+                "taxable" : true
+              }
+            }
+          },
+          "status" : "PASS"
+        },
+        "retriveInvoice" : {
+          "message" : "Successfully Retrieved Invoice",
+          "response" : {
+            "invoice" : {
+              "amount_adjusted" : 0,
+              "amount_due" : 0,
+              "amount_paid" : 900,
+              "amount_to_collect" : 0,
+              "base_currency_code" : "USD",
+              "billing_address" : {
+                "first_name" : "active_billing_in_four_days",
+                "object" : "billing_address",
+                "validation_status" : "not_validated"
+              },
+              "credits_applied" : 0,
+              "currency_code" : "USD",
+              "customer_id" : "active_billing_in_four_days",
+              "date" : 1619171358,
+              "deleted" : false,
+              "due_date" : 1619171358,
+              "exchange_rate" : 1,
+              "first_invoice" : false,
+              "has_advance_charges" : false,
+              "id" : "__demo_inv__27",
+              "is_gifted" : false,
+              "line_items" : [ {
+                "amount" : 900,
+                "customer_id" : "active_billing_in_four_days",
+                "date_from" : 1619171358,
+                "date_to" : 1621763358,
+                "description" : "No Trial",
+                "discount_amount" : 0,
+                "entity_id" : "no-trial",
+                "entity_type" : "plan",
+                "id" : "li___dev__KyVoGGSVOg16Gb",
+                "is_taxed" : false,
+                "item_level_discount_amount" : 0,
+                "object" : "line_item",
+                "pricing_model" : "per_unit",
+                "quantity" : 1,
+                "subscription_id" : "active_billing_in_four_days",
+                "tax_amount" : 0,
+                "tax_exempt_reason" : "export",
+                "unit_amount" : 900
+              } ],
+              "linked_payments" : [ {
+                "applied_amount" : 900,
+                "applied_at" : 1619171361,
+                "txn_amount" : 900,
+                "txn_date" : 1619171361,
+                "txn_id" : "txn___dev__KyVoGGSVOg1Cyc",
+                "txn_status" : "success"
+              } ],
+              "net_term_days" : 0,
+              "object" : "invoice",
+              "paid_at" : 1619171361,
+              "price_type" : "tax_exclusive",
+              "recurring" : true,
+              "resource_version" : 1619171361000,
+              "round_off_amount" : 0,
+              "status" : "paid",
+              "sub_total" : 900,
+              "subscription_id" : "active_billing_in_four_days",
+              "tax" : 0,
+              "term_finalized" : true,
+              "total" : 900,
+              "updated_at" : 1619171361,
+              "write_off_amount" : 0
+            }
+          },
+          "status" : "PASS"
+        },
+        "verifyAccountCodeForInvoice" : {
+          "response" : {
+            "domain" : "mannar-test",
+            "entityId" : "__demo_inv__27",
+            "entityType" : "invoiceId",
+            "module" : "accounting",
+            "scheduleAt" : 1619194479120,
+            "workflowId" : "-MYzVk5KV1gqu81zgIUE"
+          }
+        }
+      },
+      "status" : "PASS",
+      "workflowId" : "-MYzVk5KV1gqu81zgIUE"
+    },
+    "1454955588" : {
+      "definitionId" : "verifyAccountCodeForInvoice",
+      "domain" : "freshdesk",
+      "params" : {
+        "domain" : "mannar-test",
+        "entityId" : "__demo_inv__27",
+        "entityType" : "invoiceId",
+        "module" : "accounting",
+        "scheduleAt" : 1619195241815,
+        "workflowId" : "-MYzYeIZfz1o8XluwEfU"
+      },
+      "response" : {
+        "checkPlanAccountCode" : {
+          "message" : "checkPlanAccountCode - PASS",
+          "status" : "PASS"
+        },
+        "getPlanFromInvoice" : {
+          "message" : "Successfully Retrieved Plan",
+          "response" : {
+            "plan" : {
+              "plan" : {
+                "addon_applicability" : "all",
+                "charge_model" : "per_unit",
+                "currency_code" : "USD",
+                "enabled_in_hosted_pages" : true,
+                "enabled_in_portal" : true,
+                "free_quantity" : 0,
+                "giftable" : false,
+                "id" : "no-trial",
+                "is_shippable" : false,
+                "name" : "No Trial",
+                "object" : "plan",
+                "period" : 1,
+                "period_unit" : "month",
+                "price" : 900,
+                "pricing_model" : "per_unit",
+                "show_description_in_invoices" : false,
+                "show_description_in_quotes" : false,
+                "status" : "active",
+                "taxable" : true
+              }
+            }
+          },
+          "status" : "PASS"
+        },
+        "retriveInvoice" : {
+          "message" : "Successfully Retrieved Invoice",
+          "response" : {
+            "invoice" : {
+              "amount_adjusted" : 0,
+              "amount_due" : 0,
+              "amount_paid" : 900,
+              "amount_to_collect" : 0,
+              "base_currency_code" : "USD",
+              "billing_address" : {
+                "first_name" : "active_billing_in_four_days",
+                "object" : "billing_address",
+                "validation_status" : "not_validated"
+              },
+              "credits_applied" : 0,
+              "currency_code" : "USD",
+              "customer_id" : "active_billing_in_four_days",
+              "date" : 1619171358,
+              "deleted" : false,
+              "due_date" : 1619171358,
+              "exchange_rate" : 1,
+              "first_invoice" : false,
+              "has_advance_charges" : false,
+              "id" : "__demo_inv__27",
+              "is_gifted" : false,
+              "line_items" : [ {
+                "amount" : 900,
+                "customer_id" : "active_billing_in_four_days",
+                "date_from" : 1619171358,
+                "date_to" : 1621763358,
+                "description" : "No Trial",
+                "discount_amount" : 0,
+                "entity_id" : "no-trial",
+                "entity_type" : "plan",
+                "id" : "li___dev__KyVoGGSVOg16Gb",
+                "is_taxed" : false,
+                "item_level_discount_amount" : 0,
+                "object" : "line_item",
+                "pricing_model" : "per_unit",
+                "quantity" : 1,
+                "subscription_id" : "active_billing_in_four_days",
+                "tax_amount" : 0,
+                "tax_exempt_reason" : "export",
+                "unit_amount" : 900
+              } ],
+              "linked_payments" : [ {
+                "applied_amount" : 900,
+                "applied_at" : 1619171361,
+                "txn_amount" : 900,
+                "txn_date" : 1619171361,
+                "txn_id" : "txn___dev__KyVoGGSVOg1Cyc",
+                "txn_status" : "success"
+              } ],
+              "net_term_days" : 0,
+              "object" : "invoice",
+              "paid_at" : 1619171361,
+              "price_type" : "tax_exclusive",
+              "recurring" : true,
+              "resource_version" : 1619171361000,
+              "round_off_amount" : 0,
+              "status" : "paid",
+              "sub_total" : 900,
+              "subscription_id" : "active_billing_in_four_days",
+              "tax" : 0,
+              "term_finalized" : true,
+              "total" : 900,
+              "updated_at" : 1619171361,
+              "write_off_amount" : 0
+            }
+          },
+          "status" : "PASS"
+        },
+        "verifyAccountCodeForInvoice" : {
+          "response" : {
+            "domain" : "mannar-test",
+            "entityId" : "__demo_inv__27",
+            "entityType" : "invoiceId",
+            "module" : "accounting",
+            "scheduleAt" : 1619195241815,
+            "workflowId" : "-MYzYeIZfz1o8XluwEfU"
+          }
+        }
+      },
+      "status" : "PASS",
+      "workflowId" : "-MYzYeIZfz1o8XluwEfU"
+    },
+    "1553364431" : {
+      "definitionId" : "verifyAccountCodeForInvoice",
+      "domain" : "freshdesk",
+      "params" : {
+        "domain" : "",
+        "entityId" : "__demo_inv__12",
+        "entityType" : "invoiceId",
+        "module" : "accounting",
+        "scheduleAt" : 1619345808081,
+        "workflowId" : "-MZ7X0ojm-_MRIiMsCpD"
+      },
+      "response" : {
+        "checkPlanAccountCode" : {
+          "message" : "checkPlanAccountCode - PASS",
+          "status" : "PASS"
+        },
+        "getPlanFromInvoice" : {
+          "message" : "Successfully Retrieved Plan",
+          "response" : {
+            "plan" : {
+              "plan" : {
+                "addon_applicability" : "all",
+                "charge_model" : "per_unit",
+                "currency_code" : "USD",
+                "enabled_in_hosted_pages" : true,
+                "enabled_in_portal" : true,
+                "free_quantity" : 0,
+                "giftable" : false,
+                "id" : "basic",
+                "is_shippable" : false,
+                "name" : "Basic",
+                "object" : "plan",
+                "period" : 1,
+                "period_unit" : "month",
+                "price" : 900,
+                "pricing_model" : "per_unit",
+                "show_description_in_invoices" : false,
+                "show_description_in_quotes" : false,
+                "status" : "active",
+                "taxable" : true,
+                "trial_period" : 1,
+                "trial_period_unit" : "month"
+              }
+            }
+          },
+          "status" : "PASS"
+        },
+        "retriveInvoice" : {
+          "message" : "Successfully Retrieved Invoice",
+          "response" : {
+            "invoice" : {
+              "amount_adjusted" : 0,
+              "amount_due" : 0,
+              "amount_paid" : 900,
+              "amount_to_collect" : 0,
+              "base_currency_code" : "USD",
+              "billing_address" : {
+                "first_name" : "active_billing_today",
+                "object" : "billing_address",
+                "validation_status" : "not_validated"
+              },
+              "credits_applied" : 0,
+              "currency_code" : "USD",
+              "customer_id" : "active_billing_today",
+              "date" : 1619084653,
+              "deleted" : false,
+              "due_date" : 1619084653,
+              "exchange_rate" : 1,
+              "first_invoice" : false,
+              "has_advance_charges" : false,
+              "id" : "__demo_inv__12",
+              "is_gifted" : false,
+              "line_items" : [ {
+                "amount" : 900,
+                "customer_id" : "active_billing_today",
+                "date_from" : 1619084653,
+                "date_to" : 1621676653,
+                "description" : "Basic",
+                "discount_amount" : 0,
+                "entity_id" : "basic",
+                "entity_type" : "plan",
+                "id" : "li___dev__8asnnSVHagLu8j",
+                "is_taxed" : false,
+                "item_level_discount_amount" : 0,
+                "object" : "line_item",
+                "pricing_model" : "per_unit",
+                "quantity" : 1,
+                "subscription_id" : "active_billing_today",
+                "tax_amount" : 0,
+                "tax_exempt_reason" : "tax_not_configured",
+                "unit_amount" : 900
+              } ],
+              "linked_payments" : [ {
+                "applied_amount" : 900,
+                "applied_at" : 1619084654,
+                "txn_amount" : 900,
+                "txn_date" : 1619084654,
+                "txn_id" : "txn___dev__8asnnSVHagMZ8k",
+                "txn_status" : "success"
+              } ],
+              "net_term_days" : 0,
+              "object" : "invoice",
+              "paid_at" : 1619084654,
+              "price_type" : "tax_exclusive",
+              "recurring" : true,
+              "resource_version" : 1619084653529,
+              "round_off_amount" : 0,
+              "status" : "paid",
+              "sub_total" : 900,
+              "subscription_id" : "active_billing_today",
+              "tax" : 0,
+              "term_finalized" : true,
+              "total" : 900,
+              "updated_at" : 1619084653,
+              "write_off_amount" : 0
+            }
+          },
+          "status" : "PASS"
+        },
+        "verifyAccountCodeForInvoice" : {
+          "response" : {
+            "domain" : "",
+            "entityId" : "__demo_inv__12",
+            "entityType" : "invoiceId",
+            "module" : "accounting",
+            "scheduleAt" : 1619345808081,
+            "workflowId" : "-MZ7X0ojm-_MRIiMsCpD"
+          }
+        }
+      },
+      "status" : "PASS",
+      "workflowId" : "-MZ7X0ojm-_MRIiMsCpD"
+    },
+    "1760666929" : {
+      "definitionId" : "verifyAccountCodeForInvoice",
+      "domain" : "freshdesk",
+      "params" : {
+        "domain" : "mannar-test",
+        "entityId" : "__demo_inv__27",
+        "entityType" : "invoiceId",
+        "module" : "accounting",
+        "scheduleAt" : 1619193884198,
+        "workflowId" : "-MYzTTqlnKOSQOb7h_9i"
+      },
+      "response" : {
+        "verifyAccountCodeForInvoice" : {
+          "response" : {
+            "domain" : "mannar-test",
+            "entityId" : "__demo_inv__27",
+            "entityType" : "invoiceId",
+            "module" : "accounting",
+            "scheduleAt" : 1619193884198,
+            "workflowId" : "-MYzTTqlnKOSQOb7h_9i"
+          }
+        }
+      },
+      "status" : "FAIL",
+      "workflowId" : "-MYzTTqlnKOSQOb7h_9i"
+    },
+    "2083469787" : {
+      "definitionId" : "verifyAccountCodeForInvoice",
+      "domain" : "freshdesk",
+      "params" : {
+        "invoiceId" : "__demo_inv__12"
+      },
+      "response" : {
+        "getPlanFromInvoice" : {
+          "plan" : {
+            "plan" : {
+              "addon_applicability" : "all",
+              "charge_model" : "per_unit",
+              "currency_code" : "USD",
+              "enabled_in_hosted_pages" : true,
+              "enabled_in_portal" : true,
+              "free_quantity" : 0,
+              "giftable" : false,
+              "id" : "basic",
+              "is_shippable" : false,
+              "name" : "Basic",
+              "object" : "plan",
+              "period" : 1,
+              "period_unit" : "month",
+              "price" : 900,
+              "pricing_model" : "per_unit",
+              "show_description_in_invoices" : false,
+              "show_description_in_quotes" : false,
+              "status" : "active",
+              "taxable" : true,
+              "trial_period" : 1,
+              "trial_period_unit" : "month"
+            }
+          }
+        },
+        "retriveInvoice" : {
+          "invoice" : {
+            "amount_adjusted" : 0,
+            "amount_due" : 0,
+            "amount_paid" : 900,
+            "amount_to_collect" : 0,
+            "base_currency_code" : "USD",
+            "billing_address" : {
+              "first_name" : "active_billing_today",
+              "object" : "billing_address",
+              "validation_status" : "not_validated"
+            },
+            "credits_applied" : 0,
+            "currency_code" : "USD",
+            "customer_id" : "active_billing_today",
+            "date" : 1619008978,
+            "deleted" : false,
+            "due_date" : 1619008978,
+            "exchange_rate" : 1,
+            "first_invoice" : false,
+            "has_advance_charges" : false,
+            "id" : "__demo_inv__12",
+            "is_gifted" : false,
+            "line_items" : [ {
+              "amount" : 900,
+              "customer_id" : "active_billing_today",
+              "date_from" : 1619008978,
+              "date_to" : 1621600978,
+              "description" : "Basic",
+              "discount_amount" : 0,
+              "entity_id" : "basic",
+              "entity_type" : "plan",
+              "id" : "li___dev__8asu2SVCTA098j",
+              "is_taxed" : false,
+              "item_level_discount_amount" : 0,
+              "object" : "line_item",
+              "pricing_model" : "per_unit",
+              "quantity" : 1,
+              "subscription_id" : "active_billing_today",
+              "tax_amount" : 0,
+              "tax_exempt_reason" : "tax_not_configured",
+              "unit_amount" : 900
+            } ],
+            "linked_payments" : [ {
+              "applied_amount" : 900,
+              "applied_at" : 1619008979,
+              "txn_amount" : 900,
+              "txn_date" : 1619008979,
+              "txn_id" : "txn___dev__8asu2SVCTA188k",
+              "txn_status" : "success"
+            } ],
+            "net_term_days" : 0,
+            "object" : "invoice",
+            "paid_at" : 1619008979,
+            "price_type" : "tax_exclusive",
+            "recurring" : true,
+            "resource_version" : 1619008978349,
+            "round_off_amount" : 0,
+            "status" : "paid",
+            "sub_total" : 900,
+            "subscription_id" : "active_billing_today",
+            "tax" : 0,
+            "term_finalized" : true,
+            "total" : 900,
+            "updated_at" : 1619008978,
+            "write_off_amount" : 0
+          }
+        },
+        "verifyAccountCodeForInvoice" : {
+          "invoiceId" : "__demo_inv__12"
+        }
+      },
+      "status" : "PASS",
+      "workflowId" : 1619189238116
+    },
+    "hash1" : "object"
+  },
+  "Jobs" : {
+    "workflowJobs" : {
+      "jobId1" : {
+        "domainName" : "mannar-test",
+        "jobContext" : {
+          "entityId" : "__demo_inv__23",
+          "entityType" : "PlanId",
+          "entityValue" : 1234,
+          "invoiceId" : "__demo_inv__23",
+          "module" : "hp",
+          "scheduleAt" : "22/04/2021"
+        },
+        "output" : {
+          "accountingCodeCheck" : {
+            "rootCause" : "Accounting Code not found",
+            "status" : "PASS"
+          },
+          "hostedPageCheck" : {
+            "rootCause" : "Not in Allowed values",
+            "status" : "PASS"
+          },
+          "invoiceCodeCheck" : {
+            "rootCause" : "Invoice Code not found",
+            "status" : "PASS"
+          },
+          "verifyAccountCodeForInvoice" : {
+            "rootCause" : "The plan in the invoice does not have account code",
+            "status" : "PASS"
+          }
+        },
+        "status" : "SCHEDULED"
+      }
+    }
+  },
+  "actions" : {
+    "CreateJiraIssue" : {
+      "actionType" : "HYBRID",
+      "desc" : "Not Sure what the resolution? Raise a jira ticket to Dev",
+      "name" : "Create a JIRA ticket"
+    },
+    "enableSiteSetting" : {
+      "actionType" : "HYBRID",
+      "desc" : "Enable Account fields in the site settings?",
+      "href" : "http://mannar-test.localcb.in:8080/",
+      "name" : "Site setting",
+      "type" : "Recommended"
+    },
+    "referDocLink" : {
+      "actionType" : "NORMAL",
+      "desc" : "Checkout The Help Docs",
+      "href" : "https://www.chargebee.com/docs/",
+      "name" : "View Help Docs",
+      "type" : "Recommended"
+    },
+    "sendChatMessage" : {
+      "actionType" : "HYBRID",
+      "desc" : "Send a Chat Message to the Customer the actual root cause",
+      "name" : "Send a Chat Notification to Customer"
+    },
+    "sendSlackMessage" : {
+      "actionType" : "HYBRID",
+      "desc" : "Do you want to alert the channel with this issue",
+      "href" : "http://localhost:3030/trigger_slack",
+      "name" : "Trigger Slack Notification",
+      "script" : "sendSlack.js",
+      "type" : "Recommended"
+    },
+    "triggerEmailAction" : {
+      "desc" : "Do you want to trigger an email?",
+      "href" : "http://localhost:3030/trigger_email",
+      "name" : "Trigger Email",
+      "script" : "triggerEmail.js",
+      "type" : "Immediate"
+    }
+  },
+  "definitions" : {
+    "checkNotInAllowedItems" : {
+      "actions" : [ "triggerEmailAction" ],
+      "cause" : "Amount cannot be $0 when hide $0 line item is enabled",
+      "id" : "checkNotInAllowedItems",
+      "modules" : [ "HP" ],
+      "name" : "Check Not In Allowed Items",
+      "params" : {
+        "domain" : "string",
+        "entityId" : "string"
+      },
+      "priority" : "P1",
+      "rules" : {
+        "checkHideZeroEnabled" : {
+          "input" : {
+            "domain" : {
+              "field" : "domain",
+              "source" : "checkNotInAllowedItems"
+            }
+          }
+        },
+        "checkPlanAmountIsNotZero" : {
+          "input" : {
+            "planId" : {
+              "field" : "entityId",
+              "source" : "checkNotInAllowedItems"
+            }
+          }
+        }
+      },
+      "rulesOrder" : [ "checkHideZeroEnabled", "checkPlanAmountIsNotZero" ]
+    },
+    "verifyAccountCodeForInvoice" : {
+      "actions" : [ "triggerEmailAction" ],
+      "cause" : "The plan in the invoice does not have account code",
+      "id" : "verifyAccountCodeForInvoice",
+      "modules" : [ "accounting" ],
+      "name" : "Verify Account Code For Invoice",
+      "params" : {
+        "entityId" : "string"
+      },
+      "priority" : "P2",
+      "rules" : {
+        "checkPlanAccountCode" : {
+          "input" : {
+            "plan" : {
+              "field" : "plan",
+              "source" : "getPlanFromInvoice"
+            }
+          }
+        },
+        "getPlanFromInvoice" : {
+          "input" : {
+            "invoice" : {
+              "field" : "invoice",
+              "source" : "retriveInvoice"
+            }
+          }
+        },
+        "retriveInvoice" : {
+          "input" : {
+            "invoiceId" : {
+              "field" : "entityId",
+              "source" : "verifyAccountCodeForInvoice"
+            }
+          }
+        }
+      },
+      "rulesOrder" : [ "retriveInvoice", "getPlanFromInvoice", "checkPlanAccountCode" ]
+    }
+  },
+  "module" : {
+    "accounting" : {
+      "definitions" : [ "verifyAccountCodeForInvoice" ],
+      "id" : "accounting",
+      "name" : "accounting integrations"
+    },
+    "crm" : {
+      "id" : "crm",
+      "name" : "CRM integrations"
+    },
+    "gateway" : {
+      "id" : "gateway",
+      "name" : "gateway"
+    },
+    "hp" : {
+      "id" : "hp",
+      "name" : "Hosted pages"
+    }
+  },
+  "rules" : {
+    "checkHideZeroEnabled" : {
+      "id" : "checkHideZeroEnabled",
+      "name" : "Check if hide zero setting endbled",
+      "output" : {
+        "isHideZeroEnabled" : "boolean"
+      },
+      "params" : {
+        "domain" : "string"
+      },
+      "script" : "checkHideZeroEnabled.js",
+      "statusMessageMap" : {
+        "ERROR" : "Something went wrong",
+        "FAIL" : "Hide Zero Disabled",
+        "PASS" : "Hide Zero Enabled"
+      }
+    },
+    "checkPlanAccountCode" : {
+      "id" : "checkPlanAccountCode",
+      "name" : "Check if Plan has account code",
+      "params" : {
+        "plan" : "object"
+      },
+      "script" : "checkPlanAccountCode.js",
+      "statusMessageMap" : {
+        "ERROR" : "Something went wrong",
+        "FAIL" : "checkPlanAccountCode - FAIL",
+        "PASS" : "checkPlanAccountCode - PASS"
+      }
+    },
+    "checkPlanAmountIsNotZero" : {
+      "id" : "checkPlanAmountIsNotZero",
+      "name" : "Check if plan amount is not zero",
+      "output" : {
+        "isPlanAmountIsNotZero" : "boolean"
+      },
+      "params" : {
+        "planId" : "string"
+      },
+      "script" : "checkPlanAmountIsNotZero.js",
+      "statusMessageMap" : {
+        "ERROR" : "Something went wrong",
+        "FAIL" : "Plan amount is zero",
+        "PASS" : "Plan amount is not zero"
+      }
+    },
+    "getPlanFromInvoice" : {
+      "id" : "getPlanFromInvoice",
+      "name" : "Retrive Plan from Invoice",
+      "output" : {
+        "plan" : "object"
+      },
+      "params" : {
+        "invoice" : "object"
+      },
+      "script" : "getPlanFromInvoice.js",
+      "statusMessageMap" : {
+        "ERROR" : "Something went wrong",
+        "FAIL" : "Failed to retrive Plan",
+        "PASS" : "Successfully Retrieved Plan"
+      }
+    },
+    "retriveInvoice" : {
+      "id" : "retriveInvoice",
+      "name" : "Retrive Invoice",
+      "output" : {
+        "invoice" : "object"
+      },
+      "params" : {
+        "invoiceId" : "string"
+      },
+      "script" : "retriveInvoice.js",
+      "statusMessageMap" : {
+        "ERROR" : "Something went wrong",
+        "FAIL" : "Failed to retrive Invoice",
+        "PASS" : "Successfully Retrieved Invoice"
+      }
+    }
+  },
+  "users" : {
+    "user1" : {
+      "currentRunningJob" : "-MZC1h2kQ8mIzsf6E5Wt"
+    }
+  }
+}

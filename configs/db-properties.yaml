@@ -1,0 +1,12 @@
+localhost: {
+               host: localhost,
+               user: root,
+               password: ~,
+               database: cb_local_gen_test
+}
+predev: {
+    host: localhost,
+    user: root,
+    password: ~,
+    database: cb_local_gen_test
+}

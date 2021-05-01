@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <!--adding firebase -->
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="css/freelancer.min.css" rel="stylesheet">
+    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js">
+    </script>
+
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    
+    <style type="text/css">
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font: 1.2em/1.4 'Oswald', sans-serif;
+            color: #fff;
+            text-align: right;
+        }
+
+        .rolldown-list {
+            text-align: left;
+            padding: 0;
+            margin: 0;
+        }
+
+        .rolldown-list li {
+            padding: 1em;
+            margin-bottom: .125em;
+            display: block;
+            list-style: none;
+            text-transform: uppercase;
+        }
+
+        .rolldown-list li {
+            visibility: hidden;
+            animation: rolldown .7s 1;
+            transform-origin: 50% 0;
+            animation-fill-mode: forwards;
+        }
+
+        .rolldown-list li:nth-child(2n) {
+            background-color: #444;
+        }
+
+        .rolldown-list li:nth-child(2n+1) {
+            background-color: #333;
+        }
+
+        #myList {
+            position: absolute;
+            width: 50%;
+            left: 50%;
+            margin-left: -25%;
+            margin-top: 15%;
+        }
+
+        #btnReload {
+            float: right;
+            color: #333;
+            background: #ccc;
+            text-transform: uppercase;
+            border: none;
+            padding: .5em 1em;
+        }
+
+        #btnReload:hover {
+            background: #ddd;
+        }
+
+        @keyframes rolldown {
+            0% {
+                visibility: visible;
+                transform: rotateX(180deg) perspective(500px);
+            }
+            70% {
+                visibility: visible;
+                transform: rotateX(-20deg);
+            }
+            100% {
+                visibility: visible;
+                transform: rotateX(0deg);
+            }
+        }
+    </style>
+
+</head>
+
+<body style="
+    background: #31708f;">
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="#page-top">Placement Portal</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="index.html">Companies</a>
+                    </li>
+
+                    <li class="page-scroll">
+                        <a href="add.html">Got Placed?</a>
+                    </li>
+
+                    <li class="page-scroll">
+                        <a href="search.html">Search</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <!-- /.container -->
+    <script type="text/javascript">
+        // Increments the delay on each item.
+        $(document).ready(function() {
+                    $('.rolldown-list li').each(function() {
+                        var delay = ($(this).index() / 4) + 's';
+                        $(this).css({
+                            webkitAnimationDelay: delay,
+                            mozAnimationDelay: delay,
+                            animationDelay: delay
+                        });
+                    });
+
+                    var config = {
+                        apiKey: "AIzaSyA92q6e_LSbn35FhI6P1XLvkVDwl0-Y7uk",
+                        authDomain: "placementportal-ffbdf.firebaseapp.com",
+                        databaseURL: "https://placementportal-ffbdf.firebaseio.com",
+                        projectId: "placementportal-ffbdf",
+                        storageBucket: "",
+                        messagingSenderId: "103083708993"
+                    };
+                    firebase.initializeApp(config);
+
+                    var database = firebase.database();
+
+                    var ref = database.ref('placedstudents');
+                    ref.on("value", gotData, errData);
+
+                    function gotData(data) {
+                        var data1 = new Array();
+                        var data2 = new Array();//company
+                        var data3 = new Array();//email
+                        var printthis = "";
+                        var spaces="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"
+                        var placedstudents = data.val();
+                        var keys = Object.keys(placedstudents)
+                        for (var i = 0; i < keys.length; i++) {
+                            var key = keys[i]
+                            var stud = placedstudents[key];
+                            data1.push(stud.first_name)
+                            data2.push(stud.company)
+                            data3.push(stud.email)
+
+                            
+                        }
+
+                        var str = '<ul class="rolldown-list" id="myList">';
+                        str+='<li style="font-weight: bold;">'+ "No" +spaces+ "Name" + spaces + "Company"+spaces+"Email"+spaces+"</li>"
+
+
+
+                        for (var i = 0; i < data1.length; i++) {
+                            str += '<li style="font-color:#4CAF50">'+ (i+1) + spaces + data1[i] + spaces + data2[i]+spaces+'<a href="#">'+data3[i]+'</a>'+spaces+"</li>"
+
+                        }
+                        str += '</ul>';
+
+
+                        $('body').append(str);
+
+                        //console.log(printthis)
+                       
+
+
+                    }
+                     function errData(error) {
+                            if (error)
+                                console.log(error)
+                            else
+                                console.log("no error");
+                        }
+
+
+                });
+    </script>
+</body>
+
+</html>

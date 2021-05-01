@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="css/freelancer.min.css" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+
+<style type="text/css">
+    body{
+  background-color: #444;
+}
+
+.formPanel{
+  text-align: left;
+  background: #555;
+  border-color: slategrey;
+  border-width: 4px;
+}
+
+.panel{
+    border-width: 4px;
+}
+
+#errors{
+  display:none;
+  color: Tomato;  
+}
+
+#success{
+  padding: 10px;
+  display:none;
+  text-align: left;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="row spacer"><br /><br /></div>
+  <div class="row">
+    <div class="col-xs-2"></div>
+    <div class="col-xs-8 text-center">
+      <div class="panel panel-default formPanel">
+        <div class="panel-heading">Create User with Email And Password</div>
+        <div class="panel-body">
+          <form>
+            <div class="form-group ">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" id="password" placeholder="Password">
+            </div>
+            <button  class="btn btn-default" id="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+      <div class="panel panel-danger" id ="errors" style='display: none;'>       
+    </div>
+      <div class="panel panel-primary" id ="success" style='display: none;'>
+    </div>
+    <div class="col-xs-2"></div>
+    <div class="row"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    
+
+    var config = {
+  apiKey: "AIzaSyA92q6e_LSbn35FhI6P1XLvkVDwl0-Y7uk",
+    authDomain: "placementportal-ffbdf.firebaseapp.com",
+    databaseURL: "https://placementportal-ffbdf.firebaseio.com",
+    projectId: "placementportal-ffbdf",
+    storageBucket: "",
+    messagingSenderId: "103083708993"
+};
+firebase.initializeApp(config);
+
+document.getElementById("submit").onclick = function(e) {
+  e.preventDefault();
+  handleSignUp();
+}
+
+function handleSignUp() {
+  var errors = document.getElementById('errors');
+  var email = document.getElementById('email').value;
+  var password = document.getElementById('password').value;
+  var warnings = "";
+
+  if (email.length < 4) {
+    warnings += 'You need a valid email chief <br/>';
+  }
+  if (password.length < 4) {
+    warnings += 'You need a valid password boss <br/>';
+  }
+
+  if (warnings != "") {
+    console.log(warnings);
+    errors.style.display = 'block';
+    errors.innerHTML = warnings;
+  } else {
+    errors.style.display = "none";
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+      errors.style.display = (errors.style.display === "none" || errors.style.display === "") ? "block" : "none";
+      console.log(error);
+      errors.innerHTML = error + "<br/>";
+    });
+  }
+}
+
+// Once a user is created with the email/login
+// Notify when he/she is logged in
+firebase.auth().onAuthStateChanged(user => {  
+  if (user) {
+    var FB_name = user.displayName;
+    var FB_email = user.email;
+    var FB_photoUrl = user.photoURL;
+    var FB_emailVerified = user.emailVerified;
+    var FB_uid = user.uid;
+    var success = document.getElementById('success');
+    success.style.display = (success.style.display === "none" || success.style.display === "") ? "block" : "none";
+    success.innerHTML = "User Logged in with Credentials: <br />" +
+      "<b>Name:</b> " + FB_name + "<br />" + 
+      "<b>Email: </b>" + FB_email + "<br />" + 
+      "<b>photoUrl: </b>" + FB_photoUrl + "<br />" + 
+      "<b>emailVerified: </b>" + FB_emailVerified + "<br />" + 
+      "<b>uid: </b>" + FB_uid + "<br />";
+  } 
+});
+
+
+firebase.auth().signOut().then(function() {
+  // Sign-out successful.
+}, function(error) {
+  // An error happened.
+});
+
+// See Also:
+// Error Codes :
+// https://firebase.google.com/docs/reference/js/firebase.auth.Auth
+// User Info:
+// https://firebase.google.com/docs/auth/web/manage-users#send_a_user_a_verification_email
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "verifyAccountCodeForInvoice": {
+    "id": "verifyAccountCodeForInvoice",
+    "name": "Verify Account Code For Invoice",
+    "modules": "Accounting",
+    "params": {
+      "invoiceId": "string"
+    },
+    "rulesOrder": [
+      "retriveInvoice",
+      "getPlanFromInvoice",
+      "checkPlanAccountCode"
+    ],
+    "rules": {
+      "retriveInvoice": {
+        "input": {
+          "invoiceId": {
+            "source": "verifyAccountCodeForInvoice",
+            "field": "invoiceId"
+          }
+        },
+        "output": {}
+      },
+      "getPlanFromInvoice": {
+        "input": {
+          "invoice": {
+            "source": "retriveInvoice",
+            "field": "invoice"
+          }
+        },
+        "output": {}
+      },
+      "checkPlanAccountCode": {
+        "input": {
+          "plan": {
+            "source": "getPlanFromInvoice",
+            "field": "plan"
+          }
+        },
+        "output": {}
+      }
+    },
+    "actions": ["actionId1"],
+    "priority": "P2"
+  }
+}

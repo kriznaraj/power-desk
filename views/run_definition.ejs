@@ -1,0 +1,212 @@
+<!DOCTYPE>
+<html ng-app="myApp">
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/navbar.css">
+    <link rel="stylesheet" href="../styles/stats.css">
+    <link rel="stylesheet" href="../styles/breakingnews.css">
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+    <script src="./scripts/FireBaseHelper.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"
+        integrity="sha512-qzgd5cYSZcosqpzpn7zF2ZId8f/8CHmFKZ8j7mU4OUXTNRd5g+ZHBPsgKEwoqxCtdQvExE5LprwwPAgoicguNg=="
+        crossorigin="anonymous"></script>
+    <title>Run a Definition</title>
+</head>
+
+<body>
+    <% var user="" %>
+        <% if (username != undefined) { %>
+            <% user = username %>
+                <%}%>
+<%- include navbar.ejs %>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div id="run_definition_form">
+                    <form id="run_definition">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Choose Category</label>
+                            <select name="category" class="form-control" id="category">
+                                <option value="accounting">Accounting Integration</option>
+                                <option value="hp">Hosted Pages</option>
+                                <option value="gateway" n>Gateway</option>
+                                <option value="crm" n>CRM</option>
+                                <option value="subscriptions">Subscriptions</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="domain">Domain</label>
+                            <input name="domain" type="text" class="form-control" id="domain" placeholder="mannar-test"
+                                default="mannar-test">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Choose the Data you have</label>
+                            <select name="entity_type" class="form-control" id="entity_type">
+                                <option>invoiceId</option>
+                                <option>planId</option>
+                                <option>subsrciptionId</option>
+                                <option>transactionId</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Input Data</label>
+                            <input name="entityId" type="text" class="form-control" id="entityId"
+                                placeholder="__demo_inv__12">
+                        </div>
+                        <button class="btn btn-success" id="booked" type="submit">Run all matching definitions</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-2"> </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" style="text-align: center;">
+                <div class="stats">
+                    <h2 style="margin-top: 5%;">Latest Job Stats</h2>
+
+                    <div class="stat">
+                        <h3>Status</h3>
+                        <p id="job_status"></p>
+                    </div>
+
+                    <div class="stat">
+                        <h3>Domain</h3>
+                        <p id="domain_name"></p>
+                    </div>
+
+                    <div class="stat">
+                        <h3>Category</h3>
+                        <p id="module_name"></p>
+                    </div>
+
+                    <div class="stat">
+                        <h3>Scheduled On</h3>
+                        <p id="scheduled_at"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" id="show_stats">
+
+                <table id="show_stats">
+                    <thead>
+                        <tr>
+                            <th>Definitions</th>
+                            <th>RootCause</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stats_body">
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+
+
+
+</body>
+<script>
+    $(document).ready(function () {
+        var database = initDatbaseConn();
+        console.log(gotJobByJobId("Job12", database))
+        populateStats(database)
+
+        function populateStats(database) {
+            console.log("112")
+            let userRef = getJobsRefByUserId("user1", database)
+
+            userRef.on("value", onUserSuccess, errData);
+
+            function onUserSuccess(data) {
+                let jobId = data.val().currentRunningJob;
+                //fetchJobsBasedOn currentRunnigJobId
+                let jobRef = gotJobByJobId(jobId, database)
+                jobRef.on("value", onJobSuccess, errData)
+
+            }
+
+            function onJobSuccess(data) {
+                console.log("jobbb", data);
+                var job = data.val();
+                var domain_name = job.domainName
+                var job_context = job.jobContext
+                console.log(job_context)
+                var module_name = job_context.module
+                var today = new Date();
+                var scheduled_at = today.toISOString().substring(0, 10);
+                var output = job.output
+                var outputRef = getOutputForJobId(data.key, database)
+                outputRef.on("value", (data) => {
+                    output = data.val()
+                }, errData)
+
+                // var scheduled_at = job.scheduleAt
+                var job_status = job.status
+                console.log("job_status" + job_status)
+
+                document.getElementById("job_status").innerHTML = job_status;
+                document.getElementById("domain_name").innerHTML = domain_name;
+                document.getElementById("module_name").innerHTML = module_name;
+                document.getElementById("scheduled_at").innerHTML = scheduled_at;
+                var definitions = Object.keys(output);
+                console.log(definitions);
+                if (definitions.length > 0) {
+                    var tr = "";
+                    
+
+                    for (var i = 0; i < definitions.length; i++) {
+                        let definition = definitions[i];
+                        href = "<a href=view_definitions?id=" + definition + ">" + definition + "</a>"
+                        tr += "<tr><td>" +
+                            href +"<td> " + output[definition].rootCause + "</td>" +
+                            "<td> " + output[definition].status + "</td>" +
+                            "</tr>";
+                    }
+                    document.getElementById("stats_body").innerHTML = tr;
+                } else {
+                    $('#show_stats').hide();
+                }
+            }
+        }
+
+        $('#run_definition').submit(function (event) {
+            var $form = $(this);
+            var category = $("#category").val();
+            var entity_type = $("#entity_type").val();
+            var entityId = $("#entityId").val();
+            var domain = $("#domain").val();
+            var scheduled_at = Date.now();
+            //take the values from the form, and put them in an object
+            var data = {
+                domainName: domain,
+                jobContext: {
+                    entityType: entity_type,
+                    entityId: entityId,
+                    module: category,
+                    scheduleAt: scheduled_at
+                },
+                status: "SCHEDULED"
+            }
+            $('#run_definition_form').hide();
+            createAJob(data, database, "user1");
+        })
+    });
+</script>
+
+</html>

@@ -1,0 +1,74 @@
+<html>
+    <head><meta name="google-signin-client_id" content="761897521243-nkv4lks0m1lnapbfaf9a37kr66k1irfa.apps.googleusercontent.com"></head>
+<body>
+    <div>
+    <% var user="" %>
+        <% if (username != undefined) { %>
+            <% user = username %>
+                <%}%>
+                <script>
+                    function signOut() {
+                      var auth2 = gapi.auth2.getAuthInstance();
+                      auth2.signOut().then(function () {
+                        console.log('User signed out.');
+                      });
+                    }
+                
+                    function onLoad() {
+                      gapi.load('auth2', function() {
+                        gapi.auth2.init();
+                      });
+                    }
+                  </script>
+                
+                  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+                    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+                        <div class="container">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header page-scroll">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                    data-target="#bs-example-navbar-collapse-1">
+                                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                                </button>
+                                <a class="navbar-brand" href="#page-top">Power Desk</a>
+                            </div>
+
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li class="hidden">
+                                        <a href="#page-top"></a>
+                                    </li>
+                                    <ul class="nav navbar-nav mx-auto">
+                                        <li class="nav-item"><a class="nav-link"
+                                                style="font-weight: bold; color: blue; " href="#">Welcome <%= user %>
+                                                    !</a></li>
+                                    </ul>
+                                    <% var redirect_domain="http://localhost:3030/" %>
+                                        <li class="page-scroll">
+                                            <% redirect_url=redirect_domain + "dashboard?" + "username=" + user %>
+                                                <a href=<%=redirect_url %> >Home</a>
+                                        </li>
+                                        <li class="page-scroll">
+                                            <% redirect_url=redirect_domain + "analytics?" + "username=" + user %>
+                                            <a href=<%=redirect_url %>>Analytics</a>
+                                        </li>
+
+                                        <li class="page-scroll">
+                                            <% redirect_url=redirect_domain + "run_definition?" + "username=" + user %>
+                                                <a href=<%=redirect_url %>>Definitions</a>
+                                        </li>
+                                        <li class="page-scroll">
+                                            <a onclick="signOut();" href="http://localhost:3030/index">Logout</a>
+                                        </li>
+
+                                </ul>
+                            </div>
+                            <!-- /.navbar-collapse -->
+                        </div>
+                        <!-- /.container-fluid -->
+                    </nav>
+                    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+</div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+base: ./
+db: ./db-properties.yml
+common: ./db-properties.yml
+api: ./configs/api-properties.yml

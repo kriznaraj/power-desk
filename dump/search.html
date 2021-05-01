@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <link href="css/search.css" rel="stylesheet">
+
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 300px;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+            background: white
+        }
+
+        .title {
+            color: grey;
+            font-size: 18px;
+        }
+
+        button {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 22px;
+            color: black;
+        }
+
+        button:hover,
+        a:hover {
+            opacity: 0.7;
+        }
+
+        .rolldown-list {
+            text-align: left;
+            padding: 0;
+            margin: 0;
+        }
+
+        .rolldown-list li {
+            padding: 1em;
+            margin-bottom: .125em;
+            display: block;
+            list-style: none;
+            text-transform: uppercase;
+        }
+
+        .rolldown-list li {
+            visibility: hidden;
+            animation: rolldown .7s 1;
+            transform-origin: 50% 0;
+            animation-fill-mode: forwards;
+        }
+
+        .rolldown-list li:nth-child(2n) {
+            background-color: #444;
+        }
+
+        .rolldown-list li:nth-child(2n+1) {
+            background-color: #333;
+        }
+
+        #myList {
+            position: absolute;
+            width: 50%;
+            left: 50%;
+            margin-left: -25%;
+            margin-top: 15%;
+        }
+
+        #btnReload {
+            float: right;
+            color: #333;
+            background: #ccc;
+            text-transform: uppercase;
+            border: none;
+            padding: .5em 1em;
+        }
+
+        #btnReload:hover {
+            background: #ddd;
+        }
+
+        @keyframes rolldown {
+            0% {
+                visibility: visible;
+                transform: rotateX(180deg) perspective(500px);
+            }
+            70% {
+                visibility: visible;
+                transform: rotateX(-20deg);
+            }
+            100% {
+                visibility: visible;
+                transform: rotateX(0deg);
+            }
+        }
+    </style>
+</head>
+
+
+
+
+<body style="background: #31708f;">
+
+    <div class="login-form" id="bttn" style="margin-top:40px">
+        <div class="form">
+
+            <button class="login-form" onclick="student()"><b>Search By Student<b> </button>
+
+            <br> <br>
+            <button class="login-form" onclick="company()"><b>Search By Company  <b></button>
+
+        </div>
+    </div>
+
+    <div id="studentsearch" style="margin-top:40px">
+        <div class="form">
+            <p>Search by Student</p>
+            <input id="a"></input>
+
+            <button onclick="studentsearch(document.getElementById('a').value)">Search</button>
+
+        </div>
+    </div>
+
+
+    <div id="companysearch" style="margin-top:40px">
+        <div class="form">
+            <p>Search by Company</p>
+            <input id="b"></input>
+
+            <button onclick="companysearch(document.getElementById('b').value)">Search</button>
+
+        </div>
+    </div>
+
+    <div class="card" id="card">
+        <h1 id="cardname" style="color:   #4b8d67 ;margin-top: 5px"></h1>
+        <p class="title" id="company"></p>
+        <p id="schoolname"></p>
+        <p id="email"></p>
+        <p id="city"></p>
+
+    </div>
+
+    <script type="text/javascript">
+        $('.rolldown-list li').each(function() {
+                        var delay = ($(this).index() / 4) + 's';
+                        $(this).css({
+                            webkitAnimationDelay: delay,
+                            mozAnimationDelay: delay,
+                            animationDelay: delay
+                        });
+                    });
+        var config = {
+            apiKey: "AIzaSyA92q6e_LSbn35FhI6P1XLvkVDwl0-Y7uk",
+            authDomain: "placementportal-ffbdf.firebaseapp.com",
+            databaseURL: "https://placementportal-ffbdf.firebaseio.com",
+            projectId: "placementportal-ffbdf",
+            storageBucket: "",
+            messagingSenderId: "103083708993"
+        };
+        firebase.initializeApp(config);
+        //hide element
+        var y = document.getElementById("studentsearch")
+        y.style.display = "none";
+
+        var z = document.getElementById("companysearch")
+        z.style.display = "none";
+
+        var z1 = document.getElementById("card")
+        z1.style.display = "none";
+
+        function student() {
+
+            var x = document.getElementById("bttn");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+            y.style.display = "block";
+
+        }
+
+        function studentsearch(studentname) {
+            console.log(studentname)
+            var database = firebase.database();
+            var printthis = ""
+            var ref = database.ref('placedstudents');
+            ref.on("value", gotData, errData);
+
+            function gotData(data) {
+                var data1 = new Array();
+                var printthis = " ";
+                var printthis2 = " ";
+                var printthis3 = " ";
+                var printthis4 = " ";
+                var printthis5 = " ";
+                var placedstudents = data.val();
+                var flag = 0;
+                var keys = Object.keys(placedstudents)
+                //console.log(keys)
+                z1.style.display = "block";
+                for (var i = 0; i < keys.length; i++) {
+                    var key = keys[i]
+                    var stud = placedstudents[key];
+                    //console.log(stud.first_name)
+                    if (stud.first_name == studentname) {
+                        console.log(stud)
+                        printthis = "<br>" + " " + stud.first_name + " " + stud.last_name + " "
+                        printthis2 = " " + stud.company + " "
+                        printthis3 = " " + stud.address + " "
+                        printthis4 = " " + stud.city + " " + "<br>"
+                        printthis5 = " " + stud.email + " "
+                        flag = 1;
+                    }
+
+                }
+                if (!flag) {
+                    alert("Not Found!!!!!!!!")
+                }
+
+                document.getElementById("cardname").innerHTML = printthis
+
+                document.getElementById("company").innerHTML = printthis2
+                document.getElementById("schoolname").innerHTML = printthis3
+                document.getElementById("city").innerHTML = printthis4
+                document.getElementById("email").innerHTML = printthis5
+            }
+
+
+            //console.log(printthis)
+            function errData(error) {
+                if (error)
+                    console.log(error)
+                else
+                    console.log("no error");
+            }
+        }
+
+
+        function company() {
+
+            var x = document.getElementById("bttn");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+
+            }
+            z.style.display = "block";
+            z1.style.display = "none";
+
+        }
+
+        function companysearch(companyname) {
+            console.log(companyname)
+            z1.style.display = "none";
+            var database = firebase.database();
+            var printthis = ""
+            var ref = database.ref('placedstudents');
+            ref.on("value", gotData, errData);
+
+            function gotData(data) {
+                var data1 = new Array();
+                var printthis = " ";
+                var flag = 0;
+                var placedstudents = data.val();
+                var keys = Object.keys(placedstudents)
+                var spaces="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"
+                        
+                //console.log(keys)
+                for (var i = 0; i < keys.length; i++) {
+                    var key = keys[i]
+                    var stud = placedstudents[key];
+                    //console.log(stud.first_name)
+                    if (stud.company == companyname) {
+                        data1.push(stud)
+                        flag = 1
+                    }
+
+
+                }
+                if (!flag) {
+                    alert("Not Found any student in that company")
+                }
+
+
+                var str = '<ul class="rolldown-list" id="myList" style="margin-top:-50px;">';
+                str += '<li style="font-weight: bold;">' + "No"+ spaces +"FName"+spaces+"LName"+ spaces+ "Email" + spaces+ spaces + "</li>"
+
+
+
+                for (var i = 0; i < data1.length; i++) {
+                    str += "<li style='color:white'>" + (i + 1) + spaces + data1[i].first_name+spaces+data1[i].last_name + spaces + data1[i].email + spaces + "</li>"
+
+                }
+                str += '</ul>';
+
+
+                $('body').append(str);
+
+            }
+
+
+            //console.log(printthis)
+            function errData(error) {
+                if (error)
+                    console.log(error)
+                else
+                    console.log("no error");
+            }
+        }
+    </script>
+
+
+
+
+
+</body>
+
+</html>
